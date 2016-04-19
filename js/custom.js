@@ -62,6 +62,7 @@ function insertTableFromQuery( elementId, query){
             ret += '</table></div>';
 
             alert(ret);
+            alert(elementId);
 
             $("#".elementId).append(ret);
         }
