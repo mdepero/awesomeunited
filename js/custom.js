@@ -64,7 +64,7 @@ function insertTableFromQuery( elementId, query){
             alert(ret);
             alert(elementId);
 
-            $("#".elementId).append(ret);
+            $("#"+elementId).append(ret);
         }
     });
 
