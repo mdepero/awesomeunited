@@ -204,7 +204,6 @@
                     </p>
                     <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
                     </p>
-                    
 
                   </div>
                 </div>
@@ -224,13 +223,17 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div id="backend_test" class="x_content">
+                  <div class="x_content">
 
                     <h4>This is a test...</h4>
 
                     <div id="test_table">
 
                     </div>
+
+                    <script>
+                    $(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test;') });
+                    </script>
                     
 
                   </div>
