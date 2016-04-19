@@ -29,7 +29,7 @@ function insertTableFromQuery( elementId, query){
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
-        url: "http://ohioporcelain.com/server.php?q=".str_replace(' ','%20',query).";", 
+        url: "http://ohioporcelain.com/server.php?q="+str_replace(' ','%20',query)+";", 
         success: function(result){
 
             var data = JSON.parse(result);
