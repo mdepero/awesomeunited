@@ -4,6 +4,95 @@
  * and open the template in the editor.
  */
 
+
+
+
+
+
+
+
+
+/***************************************************
+ * Begin code created for CSE385 Databases Project *
+ ***************************************************
+ */
+
+
+
+/*
+ * elementId - The id of the HTML DOM element into which the returned
+ *             table will be inserted
+ * query - the SQL query to run
+ */
+function insertTableFromQuery( elementId, query){
+
+    $.ajax({
+        // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
+        // be done on github
+        url: "http://ohioporcelain.com/server.php?q=".str_replace(' ','%20',query).";", 
+        success: function(result){
+
+            var data = JSON.parse(result);
+
+            if(data.status != 'success'){
+                alert("An error occurred accessing the database: "+data.message);
+            }
+
+            var ret = '<div class="table-responsive"><table class="table table-striped table-hover"><thead>';
+
+            for(var i = 0; i < data.columns.length;i++){
+                ret += '<th>'+data.columns[i]+'</th>';
+            }
+
+            ret += '</thead><tbody>';
+
+            for(var i = 0; i < data.data.length;i++){
+                ret += '<tr>'
+                for(var j = 0;j < data.data[i].length;j++){
+                    ret += '<td>'+data.data[i][j]+'</td>';
+                }
+                ret += '</tr>';
+            }
+            ret += '</table></div>';
+
+            $("#".elementId).append(ret);
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*************************************************
+ * End code created for CSE385 Databases Project *
+ *************************************************
+ */
+
+
+
+
 /** ******  left menu  *********************** **/
 $(function () {
     $('#sidebar-menu li ul').slideUp();
