@@ -26,8 +26,6 @@
  */
 function insertTableFromQuery( elementId, query){
 
-    alert("about to run ajax");
-
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
@@ -39,6 +37,9 @@ function insertTableFromQuery( elementId, query){
         success: function(result){
 
             var data = JSON.parse(result);
+
+            console.log("returned JSON data: ");
+            console.log(data);
 
             if(data.status != 'success'){
                 alert("An error occurred accessing the database: "+data.message);
@@ -60,9 +61,6 @@ function insertTableFromQuery( elementId, query){
                 ret += '</tr>';
             }
             ret += '</table></div>';
-
-            alert(ret);
-            alert(elementId);
 
             $("#"+elementId).append(ret);
         }
