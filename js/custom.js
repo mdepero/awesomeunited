@@ -26,10 +26,16 @@
  */
 function insertTableFromQuery( elementId, query){
 
+    alert("about to run ajax");
+
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
         url: "http://ohioporcelain.com/server.php?q="+query.replace(' ','%20')+";", 
+
+        async: false,// bad solution to losing elementId variable since ajax normally return asynchronously
+        cache: false,
+
         success: function(result){
 
             var data = JSON.parse(result);
@@ -54,6 +60,8 @@ function insertTableFromQuery( elementId, query){
                 ret += '</tr>';
             }
             ret += '</table></div>';
+
+            alert(ret);
 
             $("#".elementId).append(ret);
         }
