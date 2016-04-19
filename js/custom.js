@@ -24,14 +24,14 @@
  *             table will be inserted
  * query - the SQL query to run
  */
-function insertTableFromQuery( elementId, query){
+function getDataFromQuery( query){
 
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
         url: "http://ohioporcelain.com/server.php?q="+query.replace(' ','%20')+";", 
 
-        async: false,// bad solution to losing elementId variable since ajax normally return asynchronously
+        async: false,// bad and slow but makes method calls much more simple
         cache: false,
 
         success: function(result){
@@ -42,29 +42,39 @@ function insertTableFromQuery( elementId, query){
             console.log(data);
 
             if(data.status != 'success'){
-                alert("An error occurred accessing the database: "+data.message);
+                alert("An error occurred accessing the database: \n"+data.message);
             }
 
-            var ret = '<div class="table-responsive"><table class="table table-striped table-hover"><thead>';
-
-            for(var i = 0; i < data.columns.length;i++){
-                ret += '<th>'+data.columns[i]+'</th>';
-            }
-
-            ret += '</thead><tbody>';
-
-            for(var i = 0; i < data.data.length;i++){
-                ret += '<tr>'
-                for(var j = 0;j < data.data[i].length;j++){
-                    ret += '<td>'+data.data[i][j]+'</td>';
-                }
-                ret += '</tr>';
-            }
-            ret += '</table></div>';
-
-            $("#"+elementId).html(ret);
+            return data;
         }
     });
+
+}
+
+
+
+function insertTableFromQuery(element, query){
+
+    var data = getDataFromQuery(query);
+
+    var ret = '<div class="table-responsive"><table class="table table-striped table-hover"><thead>';
+
+    for(var i = 0; i < data.columns.length;i++){
+        ret += '<th>'+data.columns[i]+'</th>';
+    }
+
+    ret += '</thead><tbody>';
+
+    for(var i = 0; i < data.data.length;i++){
+        ret += '<tr>'
+        for(var j = 0;j < data.data[i].length;j++){
+            ret += '<td>'+data.data[i][j]+'</td>';
+        }
+        ret += '</tr>';
+    }
+    ret += '</table></div>';
+
+    $("#"+elementId).html(ret);
 
 }
 
