@@ -62,7 +62,7 @@ function insertTableFromQuery( elementId, query){
             }
             ret += '</table></div>';
 
-            $("#"+elementId).append(ret);
+            $("#"+elementId).html(ret);
         }
     });
 
