@@ -21,7 +21,7 @@ if ($conn->connect_error) {
     die('{"status":"error","message":"Error connecting to the database"}');
 } 
 
-$sql = file_get_contents('php://input').str_replace('[','(').str_replace(']',')');
+$sql = str_replace('[','(',str_replace(']',')',file_get_contents('php://input')));
 
 $result = mysqli_query($conn, $sql);
 
