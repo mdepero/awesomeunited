@@ -93,7 +93,7 @@ function runUpdateFromQuery(query){
                 alert("An error occurred accessing the database: \n"+data.message);
             }
 
-            return true;
+            return "true";
         }
     });
 
