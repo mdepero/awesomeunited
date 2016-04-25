@@ -38,7 +38,7 @@ function userIsLoggedIn(){
 /*
  * query - the SQL query to run
  */
-function getDataFromQuery( query){
+function getDataFromQuery(query, callback){
 
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
@@ -47,7 +47,6 @@ function getDataFromQuery( query){
         data: query.replace('(','[').replace(')',']'),// parentheses are stupid,
         type: "post", 
 
-        async: false,// bad and slow but makes method calls much more simple
         cache: false,
 
         success: function(result){
@@ -60,7 +59,7 @@ function getDataFromQuery( query){
                 alert("An error occurred accessing the database: \n"+data.message);
             }
 
-            return data;
+            callback(data);
         }
     });
 
@@ -71,7 +70,7 @@ function getDataFromQuery( query){
  * query - the SQL query to run
  * returns true when update was successful
  */
-function runUpdateFromQuery(query){
+function runUpdateFromQuery(query, callback){
 
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
@@ -80,7 +79,6 @@ function runUpdateFromQuery(query){
         data: query.replace('(','[').replace(')',']'),// parentheses are stupid
         type: "post", 
 
-        async: false,// bad and slow but makes method calls much more simple
         cache: false,
 
         success: function(result){
@@ -93,38 +91,13 @@ function runUpdateFromQuery(query){
                 alert("An error occurred accessing the database: \n"+data.message);
             }
 
-            return data;
+            callback(data);
         }
     });
 
 }
 
 
-
-function insertTableFromQuery(element, query){
-
-    var data = getDataFromQuery(query);
-
-    var ret = '<div class="table-responsive"><table class="table table-striped table-hover"><thead>';
-
-    for(var i = 0; i < data.columns.length;i++){
-        ret += '<th>'+data.columns[i]+'</th>';
-    }
-
-    ret += '</thead><tbody>';
-
-    for(var i = 0; i < data.data.length;i++){
-        ret += '<tr>'
-        for(var j = 0;j < data.data[i].length;j++){
-            ret += '<td>'+data.data[i][j]+'</td>';
-        }
-        ret += '</tr>';
-    }
-    ret += '</table></div>';
-
-    $("#"+elementId).html(ret);
-
-}
 
 
 function validateEmail(email) {
