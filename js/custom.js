@@ -52,10 +52,9 @@ function getDataFromQuery( query){
 
         success: function(result){
 
-            var data = JSON.parse(result);
+            console.log("returned data: "+result);
 
-            console.log("returned JSON data: ");
-            console.log(data);
+            var data = JSON.parse(result);
 
             if(data.status != 'success'){
                 alert("An error occurred accessing the database: \n"+data.message);
@@ -86,10 +85,9 @@ function runUpdateFromQuery(query){
 
         success: function(result){
 
-            var data = JSON.parse(result);
+            console.log("returned data: "+result);
 
-            console.log("returned JSON data: ");
-            console.log(data);
+            var data = JSON.parse(result);
 
             if(data.status != 'success'){
                 alert("An error occurred accessing the database: \n"+data.message);
