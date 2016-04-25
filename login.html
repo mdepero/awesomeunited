@@ -64,7 +64,7 @@
 // ============ Log In/Account Creation Logic ====================
 
 
-var hash = url.substring(url.indexOf("#")+1); // Get the content after the #
+var hash = window.location.hash; // Get the content after the #
 
 // if logout flag is sent, log user out and display login screen
 if(hash == 'logout'){
