@@ -92,8 +92,8 @@ function runUpdateFromQuery(query){
             if(data.status != 'success'){
                 alert("An error occurred accessing the database: \n"+data.message);
             }
-            console.log("Successfully updated database")
-            return true;
+
+            return data;
         }
     });
 
