@@ -88,7 +88,7 @@ function runUpdateFromQuery(query, callback){
             var data = JSON.parse(result);
 
             if(data.status != 'success'){
-                bootbox.alert("An error occurred accessing the database: \n"+data.message);
+                bootbox.alert("An error occurred: \n"+data.message);
             }
 
             callback(data);
