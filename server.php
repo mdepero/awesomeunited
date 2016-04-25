@@ -33,7 +33,7 @@ if(!$result){
 // ======== Query executed successfully, begin constructing return data ============
 if($_REQUEST['update'] == 'true'){
 
-	echo = '{"status":"success","numRowsAffected":"'.mysqli_affected_rows ($conn).'"}';
+	echo '{"status":"success","numRowsAffected":"'.mysqli_affected_rows ($conn).'"}';
 
 }else{
 	$ret = '{"status":"success","columns":[ ';
