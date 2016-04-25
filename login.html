@@ -101,7 +101,7 @@ function createAccount(){
   lname = $('#name').val().substring($('#name').val().indexOf(" ")+1);// last name is everything after first space
   fname = $('#name').val().replace(" "+lname, '');
 
-  var addUserSuccessful = runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+"email"+"',  '"+"pass"+"', NULL ,  '"+"fname"+"',  '"+"lname"+"');");
+  runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+"email"+"',  '"+"pass"+"', NULL ,  '"+"fname"+"',  '"+"lname"+"');");
 
   if(addUserSuccessful){
     $newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+"email"+"'");
