@@ -56,7 +56,7 @@ function getDataFromQuery(query, callback){
             var data = JSON.parse(result);
 
             if(data.status != 'success'){
-                alert("An error occurred accessing the database: \n"+data.message);
+                bootbox.alert("An error occurred accessing the database: \n"+data.message);
             }
 
             callback(data);
@@ -88,7 +88,7 @@ function runUpdateFromQuery(query, callback){
             var data = JSON.parse(result);
 
             if(data.status != 'success'){
-                alert("An error occurred accessing the database: \n"+data.message);
+                bootbox.alert("An error occurred accessing the database: \n"+data.message);
             }
 
             callback(data);
