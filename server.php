@@ -10,7 +10,7 @@ $db_name = 'elpalgnt_cse385_db';
 header('Access-Control-Allow-Origin: *'); 
 
 
-if(!isset($_REQUEST['q']) || !isset($_REQUEST['update'])){
+if(!isset($_REQUEST['update'])){
 	die('{"status":"error","message":"Missing query or update flag in request"}');
 }
 
@@ -21,7 +21,7 @@ if ($conn->connect_error) {
     die('{"status":"error","message":"Error connecting to the database"}');
 } 
 
-$sql = $_REQUEST['q'];
+$sql = file_get_contents('php://input');;
 
 $result = mysqli_query($conn, $sql);
 
