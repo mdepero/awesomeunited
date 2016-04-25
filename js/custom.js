@@ -17,11 +17,25 @@
  ***************************************************
  */
 
+/* 
+function from http://www.w3schools.com/js/js_cookies.asp, edited to include path
+cname is name of cookie, cvalue is value of cookie, exdays is cookie lifespan in days
+ */
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires + '; path=/';
+}
+
+
+function userIsLoggedIn(){
+    console.log('Checked log in status. Current cookie string: '+document.cookie)
+    return (document.cookie.indexOf("userID") >= 0);
+}
 
 
 /*
- * elementId - The id of the HTML DOM element into which the returned
- *             table will be inserted
  * query - the SQL query to run
  */
 function getDataFromQuery( query){
@@ -29,7 +43,7 @@ function getDataFromQuery( query){
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
-        url: "http://ohioporcelain.com/server.php?q="+query.replace(' ','%20')+";", 
+        url: "http://ohioporcelain.com/server.php?update=false&q="+query.replace(' ','%20')+";", 
 
         async: false,// bad and slow but makes method calls much more simple
         cache: false,
@@ -46,6 +60,38 @@ function getDataFromQuery( query){
             }
 
             return data;
+        }
+    });
+
+}
+
+
+/*
+ * query - the SQL query to run
+ * returns true when update was successful
+ */
+function runUpdateFromQuery(query){
+
+    $.ajax({
+        // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
+        // be done on github
+        url: "http://ohioporcelain.com/server.php?update=true&q="+query.replace(' ','%20')+";", 
+
+        async: false,// bad and slow but makes method calls much more simple
+        cache: false,
+
+        success: function(result){
+
+            var data = JSON.parse(result);
+
+            console.log("returned JSON data: ");
+            console.log(data);
+
+            if(data.status != 'success'){
+                alert("An error occurred accessing the database: \n"+data.message);
+            }
+
+            return true;
         }
     });
 
@@ -79,7 +125,10 @@ function insertTableFromQuery(element, query){
 }
 
 
-
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 
 
 

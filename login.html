@@ -23,6 +23,7 @@
 
 
   <script src="js/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -37,6 +38,104 @@
 </head>
 
 <body style="background:#F7F7F7;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+// ============ Log In/Account Creation Logic ====================
+
+
+var hash = url.substring(url.indexOf("#")+1); // Get the content after the #
+
+// if logout flag is sent, log user out and display login screen
+if(hash == 'logout'){
+  setCookie('userID', '', -1);// delete the cookie
+}
+
+// if user is logged in and they are not in the process of logging out, redirect them to the home page
+if(userIsLoggedIn() && hash != 'logout'){
+  window.location = '/';
+}
+
+
+function login(){
+
+
+}
+
+function createAccount(){
+  if($('#name').val().search(' ') < 0 || $('#name').val().search(' ') == $('#name').val().length - 1){
+    // no space was found in the string or a space is the last character in the string, indicating there is not a first and last name in the field
+    bootbox.alert("Please provide both a first and last name.");
+    return;
+  }if(!validateEmail($('#email').val() ) ){
+    bootbox.alert("Please provide a valid email.");
+    return;
+  }if($('#password').val().length < 6){
+    bootbox.alert("Please provide a password that is at least 6 characters long.");
+    return;
+  }
+
+  lname = $('#name').substring(url.indexOf(" ")+1);// last name is everything after first space
+  fname = $('#name').replace(" "+lname, '');
+
+  var addUserSuccessful = unUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+$('#email').val()+"',  '"+$('#password').val()+"', NULL ,  '"+fname+"',  '"+lname+"');");
+
+  if(addUserSuccessful){
+    $newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#email').val()+"'");
+    setCookie('userID',$newUser[0][0],360);
+    window.location = '/';
+  }
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <div class="">
     <a class="hiddenanchor" id="toregister"></a>
@@ -55,7 +154,7 @@
             </div>
             <div>
               <a class="btn btn-default submit" href="index.html">Log in</a>
-              <a class="reset_pass" href="#">Lost your password?</a>
+              <!--a class="reset_pass" href="#">Lost your password?</a-->
             </div>
             <div class="clearfix"></div>
             <div class="separator">
@@ -81,16 +180,16 @@
           <form>
             <h1>Create Account</h1>
             <div>
-              <input type="text" class="form-control" placeholder="Username" required="" />
+              <input type="text" id="name" class="form-control" placeholder="Name" required="" />
             </div>
             <div>
-              <input type="email" class="form-control" placeholder="Email" required="" />
+              <input type="email" id="email" class="form-control" placeholder="Email" required="" />
             </div>
             <div>
-              <input type="password" class="form-control" placeholder="Password" required="" />
+              <input type="password" id="password" class="form-control" placeholder="Password" required="" />
             </div>
             <div>
-              <a class="btn btn-default submit" href="index.html">Submit</a>
+              <a class="btn btn-default submit" href="#" onclick="createAccount();">Submit</a>
             </div>
             <div class="clearfix"></div>
             <div class="separator">

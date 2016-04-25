@@ -10,8 +10,8 @@ $db_name = 'elpalgnt_cse385_db';
 header('Access-Control-Allow-Origin: *'); 
 
 
-if(!isset($_REQUEST['q'])){
-	die('{"status":"error","message":"Missing query in request"}');
+if(!isset($_REQUEST['q']) || !isset($_REQUEST['update'])){
+	die('{"status":"error","message":"Missing query or update flag in request"}');
 }
 
 // Create connection
@@ -31,47 +31,52 @@ if(!$result){
 }
 
 // ======== Query executed successfully, begin constructing return data ============
+if($_REQUEST['update'] == 'true'){
 
-$ret = '{"status":"success","columns":[ ';
+	$ret = '{"status":"success","numRowsAffected":"'.mysqli_affected_rows ($conn).'"}';
 
-$first = true;
-while ($meta = mysqli_fetch_field($result)) {
+}else{
+	$ret = '{"status":"success","columns":[ ';
 
-    // handle comma separating
-    if($first)
-    	$first = false;
-    else
-    	$ret .= ', ';
+	$first = true;
+	while ($meta = mysqli_fetch_field($result)) {
 
-    $ret .= '"'.$meta->name.'"';
-}
+	    // handle comma separating
+	    if($first)
+	    	$first = false;
+	    else
+	    	$ret .= ', ';
 
-$ret .= ' ],"data":[ ';
+	    $ret .= '"'.$meta->name.'"';
+	}
 
-$first = true;
-while($row = mysqli_fetch_row ($result)) {
-	if($first)
-		$first = false;
-	else
-		$ret .= ', ';
+	$ret .= ' ],"data":[ ';
 
-	$ret .= '[';
-
-	$first2 = true;
-	foreach ($row as $element){
-		if($first2)
-			$first2 = false;
+	$first = true;
+	while($row = mysqli_fetch_row ($result)) {
+		if($first)
+			$first = false;
 		else
 			$ret .= ', ';
 
-		$ret .= '"'.str_replace('"','\"',$element).'"';
+		$ret .= '[';
+
+		$first2 = true;
+		foreach ($row as $element){
+			if($first2)
+				$first2 = false;
+			else
+				$ret .= ', ';
+
+			$ret .= '"'.str_replace('"','\"',$element).'"';
+		}
+
+		$ret .= ']';
 	}
 
-	$ret .= ']';
+	$ret .= ' ]}';
+
+	echo $ret;
 }
-
-$ret .= ' ]}';
-
-echo $ret;
 
 ?>
