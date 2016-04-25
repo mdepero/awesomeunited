@@ -98,7 +98,7 @@ function createAccount(){
     return;
   }
 
-  lname = $('#name').substring(url.indexOf(" ")+1);// last name is everything after first space
+  lname = $('#name').substring($('#name').indexOf(" ")+1);// last name is everything after first space
   fname = $('#name').replace(" "+lname, '');
 
   var addUserSuccessful = unUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+$('#email').val()+"',  '"+$('#password').val()+"', NULL ,  '"+fname+"',  '"+lname+"');");
