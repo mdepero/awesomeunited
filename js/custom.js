@@ -43,7 +43,7 @@ function getDataFromQuery( query){
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
-        url: "http://ohioporcelain.com/server.php?update=false&q="+encodeURI(query), 
+        url: "http://ohioporcelain.com/server.php?update=false&q="+encodeURI(query).replace('(','%28').replace(')','%29'), 
 
         async: false,// bad and slow but makes method calls much more simple
         cache: false,
@@ -75,7 +75,7 @@ function runUpdateFromQuery(query){
     $.ajax({
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
-        url: "http://ohioporcelain.com/server.php?update=true&q="+encodeURI(query), 
+        url: "http://ohioporcelain.com/server.php?update=true&q="+encodeURI(query).replace('(','%28').replace(')','%29'), 
 
         async: false,// bad and slow but makes method calls much more simple
         cache: false,
