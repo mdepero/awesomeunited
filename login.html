@@ -104,8 +104,10 @@ function createAccount(){
 
   runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+$('#email').val()+"',  '"+$('#password').val()+"', NULL ,  '"+fname+"',  '"+lname+"');", function(result){
       getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#email').val()+"'", function(result){
-        setCookie('userID',result.data[0][0],360);
-        window.location = './';
+          if(result.status == 'success'){
+            setCookie('userID',result.data[0][0],360);
+            window.location = './';
+          }
       });
 
   });
