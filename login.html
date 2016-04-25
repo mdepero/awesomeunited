@@ -69,12 +69,13 @@
 var hash = window.location.hash; // Get the content after the #
 
 // if logout flag is sent, log user out and display login screen
-if(hash == 'logout'){
+if(hash == '#logout'){
   setCookie('userID', '', -1);// delete the cookie
+  console.log('logged out');
 }
 
 // if user is logged in and they are not in the process of logging out, redirect them to the home page
-if(userIsLoggedIn() && hash != 'logout'){
+if(userIsLoggedIn() && hash != '#logout'){
   window.location = './';
 }
 
