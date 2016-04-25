@@ -44,7 +44,7 @@ function getDataFromQuery( query){
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
         url: "http://ohioporcelain.com/server.php?update=false",
-        data: query,
+        data: query.replace('(','[').replace(')',']'),// parentheses are stupid,
         type: "post", 
 
         async: false,// bad and slow but makes method calls much more simple
@@ -77,7 +77,7 @@ function runUpdateFromQuery(query){
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
         url: "http://ohioporcelain.com/server.php?update=true",
-        data: query,
+        data: query.replace('(','[').replace(')',']'),// parentheses are stupid
         type: "post", 
 
         async: false,// bad and slow but makes method calls much more simple
