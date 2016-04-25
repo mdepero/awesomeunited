@@ -104,7 +104,7 @@ function createAccount(){
   var addUserSuccessful = runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+"email"+"',  '"+"pass"+"', NULL ,  '"+"fname"+"',  '"+"lname"+"');");
 
   if(addUserSuccessful){
-    $newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#email').val()+"'");
+    $newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+"email"+"'");
     setCookie('userID',$newUser[0][0],360);
     window.location = '/';
   }
