@@ -101,13 +101,13 @@ function createAccount(){
   lname = $('#name').val().substring($('#name').val().indexOf(" ")+1);// last name is everything after first space
   fname = $('#name').val().replace(" "+lname, '');
 
-  var addUserSuccessful = runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+$('#email').val()+"',  '"+$('#password').val()+"', NULL ,  '"+fname+"',  '"+lname+"');");
+  addUserSuccessful = runUpdateFromQuery("INSERT INTO User (`User_ID` ,`Email` ,`Password` ,`Organization` ,`First_Name` ,`Last_Name`)VALUES (NULL ,  '"+$('#email').val()+"',  '"+$('#password').val()+"', NULL ,  '"+fname+"',  '"+lname+"');");
 
   console.log("successful? "+addUserSuccessful);
 
   if(addUserSuccessful){
     console.log("next query");
-    $newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#email').val()+"'");
+    newUser = getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#email').val()+"'");
     setCookie('userID',$newUser[0][0],360);
     window.location = '/';
   }
