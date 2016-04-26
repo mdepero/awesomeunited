@@ -43,10 +43,16 @@ function getUserID() {
     return "";
 }
 
-
 function userIsLoggedIn(){
     console.log('Checked log in status. Current cookie string: '+document.cookie)
     return (document.cookie.indexOf("userID") >= 0);
+}
+
+function getIDFromURL(){
+
+    var hash = window.location.hash;
+    hash = hash.replace('#','');
+    return hash;
 }
 
 

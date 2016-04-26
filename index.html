@@ -44,12 +44,6 @@
 <script>
 
 
-
-
-
-
-
-
 $( document ).ready(function(){
 
   /* Begin Opening Logic for all pages (except log in) */
@@ -69,7 +63,42 @@ $( document ).ready(function(){
 
   /* End Opening Logic, begin page generation logic */
 
+
+  // *************** Put all page generation scripts here. *****************
+  // the variable userID gets the current user ID.
+  // if you are on a team or projects page, the ID of the project/team you are access is in the URL.
+  // use getIDFromURL() to get the ID that is in the URL so that you get the right project or team info
+
+
+
+
+
+
+
+
+
+
+
 });
+
+
+
+// ***************** Methods that generate the content go here. ********************
+// Use the examples from the projects list and teams list generation methods
+// result parameter is a data type that has the follow properties:
+//    result.status = the status of the query ( should always be success as this is checked when the data is returned from the DB)
+//    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
+//    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
+//    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
+
+
+
+
+
+
+
+
+
 
 
 
