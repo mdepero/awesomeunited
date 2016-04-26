@@ -44,6 +44,116 @@
 
 <body class="nav-md">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+$( document ).ready(function(){
+
+  /* Begin Opening Logic for all pages (except log in) */
+  if(!userIsLoggedIn()){
+    window.location = './login.html';
+    return;// stop loading the page
+  }
+
+  var userID = getUserID();
+
+  // generate teams list
+  getDataFromQuery("SELECT Team_ID, Name FROM Project WHERE User_ID = '"+userID+"'", generateTeamsList);
+
+  // generate projects list
+  getDataFromQuery("SELECT Project_ID, Name FROM Team WHERE User_ID = '"+userID+"'", generateProjectsList);
+
+  /* End Opening Logic, begin page generation logic */
+
+});
+
+
+
+
+
+
+
+
+
+
+generateTeamsList(result){
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#teams_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+
+  }
+  console.log("successfully generated team list");
+
+}
+
+generateProjectsList(result){
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#projects_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+
+  }
+  console.log("successfully generated team list");
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="container body">
 
 
@@ -89,29 +199,13 @@
                   </ul>
                 </li>
                 <li><a><i class="fa fa-users"></i> Teams <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">UI/UX</a>
-                    </li>
-                    <li><a href="#">Triage</a>
-                    </li>
-                    <li><a href="#">Scrum</a>
-                    </li>
+                  <ul class="nav child_menu" id="teams_list" style="display: none">
+
                   </ul>
                 </li>
                 <li><a><i class="fa fa-cogs"></i> Projects <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Pokedex</a>
-                    </li>
-                    <li><a href="#">CSE385 Final Project</a>
-                    </li>
-                    <li><a href="#">Movie Database Website</a>
-                    </li>
-                    <li><a href="#">Random Number Generator</a>
-                    </li>
-                    <li><a href="#">Virtual Dance Move Maker</a>
-                    </li>
-                    <li><a href="#">Final Class Scheduler</a>
-                    </li>
+                  <ul class="nav child_menu" id="projects_list" style="display: none">
+
                   </ul>
                 </li>
               </ul>
@@ -119,6 +213,7 @@
 
           </div>
           <!-- /sidebar menu -->
+
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">

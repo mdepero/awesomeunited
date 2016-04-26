@@ -18,7 +18,7 @@
  */
 
 /* 
-function from http://www.w3schools.com/js/js_cookies.asp, edited to include path
+cookie functions from http://www.w3schools.com/js/js_cookies.asp, edited to include path
 cname is name of cookie, cvalue is value of cookie, exdays is cookie lifespan in days
  */
 function setCookie(cname, cvalue, exdays) {
@@ -26,6 +26,21 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + "; " + expires + '; path=/';
+}
+function getUserID() {
+    var name = 'userID' + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    bootbox.alert("User is not logged in to retrieve ID");
+    return "";
 }
 
 
