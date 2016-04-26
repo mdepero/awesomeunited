@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TasksDB</title>
+  <title>TaskDB | Home</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -24,9 +24,7 @@
   <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
 
   <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
   <script src="js/nprogress.js"></script>
-  <script src="js/bootbox.min.js"></script>
   <script src="js/custom.js"></script>
 
   <!--[if lt IE 9]>
@@ -43,21 +41,14 @@
 
 
 
-
-
-
-
-
-
-
-
-<script type="text/javascript">
+<script>
 
 
 $( document ).ready(function(){
 
   /* Begin Opening Logic for all pages (except log in) */
   if(!userIsLoggedIn()){
+    console.log("user is not logged in, about to redirect");
     window.location = './login.html';
     return;// stop loading the page
   }
@@ -72,7 +63,42 @@ $( document ).ready(function(){
 
   /* End Opening Logic, begin page generation logic */
 
+
+  // *************** Put all page generation scripts here. *****************
+  // the variable userID gets the current user ID.
+  // if you are on a team or projects page, the ID of the project/team you are access is in the URL.
+  // use getIDFromURL() to get the ID that is in the URL so that you get the right project or team info
+
+
+
+
+
+
+
+
+
+
+
 });
+
+
+
+// ***************** Methods that generate the content go here. ********************
+// Use the examples from the projects list and teams list generation methods
+// result parameter is a data type that has the follow properties:
+//    result.status = the status of the query ( should always be success as this is checked when the data is returned from the DB)
+//    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
+//    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
+//    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,7 +115,7 @@ function generateTeamsList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#teams_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+    $('#teams_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
 
   }
   console.log("successfully generated team list");
@@ -98,11 +124,14 @@ function generateTeamsList(result){
 
 function generateProjectsList(result){
 
+  console.log("generating projects list...");
+  console.log(result);
+
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
 
-    $('#projects_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+    $('#projects_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
 
   }
   console.log("successfully generated projects list");
@@ -110,8 +139,18 @@ function generateProjectsList(result){
 }
 
 
-</script>
 
+
+
+
+
+
+
+
+
+
+
+</script>
 
 
 
@@ -152,7 +191,7 @@ function generateProjectsList(result){
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="./" class="site_title"><i class="fa fa-database"></i> <span>TasksDB</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -188,12 +227,12 @@ function generateProjectsList(result){
                   </ul>
                 </li>
                 <li><a><i class="fa fa-users"></i> Teams <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" id="team_list" style="display: none">
+                  <ul class="nav child_menu" id="teams_list" style="display: none">
 
                   </ul>
                 </li>
                 <li><a><i class="fa fa-cogs"></i> Projects <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" id="project_list" style="display: none">
+                  <ul class="nav child_menu" id="projects_list" style="display: none">
 
                   </ul>
                 </li>
@@ -254,6 +293,79 @@ function generateProjectsList(result){
                 </ul>
               </li>
 
+              <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="badge bg-green">6</span>
+                </a>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="text-center">
+                      <a href="inbox.html">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
             </ul>
           </nav>
         </div>
@@ -263,16 +375,18 @@ function generateProjectsList(result){
 
 
       <!-- page content -->
-      <div class="right_col" role="main">
+      <div class="right_col" role="main" style="min-height: 100vh">
 
+        
 
         <div class="row">
 
-              <!-- Start Project Progress -->
+
+              
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2>Project Progress</h2>
+                    <h2>Welcome</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -282,77 +396,48 @@ function generateProjectsList(result){
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <h4>Percent of tasks completed for each project</h4>
-                    <div class="widget_summary">
-                      <div class="w_left w_25">
-                        <span>Pokedex</span>
-                      </div>
-                      <div class="w_center w_55">
-                        <div class="progress">
-                          <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            <span class="sr-only">60% Complete</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w_right w_20">
-                        <span>60%</span>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
 
-                    <div class="widget_summary">
-                      <div class="w_left w_25">
-                        <span>CSE385 Final Project</span>
-                      </div>
-                      <div class="w_center w_55">
-                        <div class="progress">
-                          <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                            <span class="sr-only">45% Complete</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w_right w_20">
-                        <span>45%</span>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="widget_summary">
-                      <div class="w_left w_25">
-                        <span>Move Database Website</span>
-                      </div>
-                      <div class="w_center w_55">
-                        <div class="progress">
-                          <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                            <span class="sr-only">25% Complete</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w_right w_20">
-                        <span>25%</span>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="widget_summary">
-                      <div class="w_left w_25">
-                        <span>Random Number Generator</span>
-                      </div>
-                      <div class="w_center w_55">
-                        <div class="progress">
-                          <div class="progress-bar bg-aero" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                            <span class="sr-only">5% Complete</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w_right w_20">
-                        <span>5%</span>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
+                    <h4>Hello!</h4>
+
+                    <p>Welcome to TasksDB. This project lets you manage multiple projects among multiple teams and keep everything organized and in one place. This project management system keeps track of tasks, assigns tasks to teams and individuals, and provides easy to read dashboards that let you see everything you need to know at a glance.
+                    </p>
+                    <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
+                    </p>
 
                   </div>
                 </div>
               </div>
-              <!-- End Progress Report -->
+              
+
+
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel tile">
+                  <div class="x_title">
+                    <h2>Test</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <h4>This is a test...</h4>
+
+                    <div id="test_table">
+
+                    </div>
+
+                    <script>
+                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
+                    </script>
+                    
+
+                  </div>
+                </div>
+              </div>
 
         </div>
 
@@ -360,7 +445,7 @@ function generateProjectsList(result){
 
         <footer>
           <div class="copyright-info">
-            <p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            <p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>  
             </p>
           </div>
           <div class="clearfix"></div>
@@ -396,7 +481,6 @@ function generateProjectsList(result){
   <!-- chart js -->
   <script src="js/chartjs/chart.min.js"></script>
 
-  <script src="js/custom.js"></script>
 
   <!-- flot js -->
   <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->

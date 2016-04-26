@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TasksDB</title>
+  <title>TaskDB | To Do List</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -24,9 +24,7 @@
   <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
 
   <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
   <script src="js/nprogress.js"></script>
-  <script src="js/bootbox.min.js"></script>
   <script src="js/custom.js"></script>
 
   <!--[if lt IE 9]>
@@ -38,6 +36,146 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+
+
+
+
+<script>
+
+
+$( document ).ready(function(){
+
+  /* Begin Opening Logic for all pages (except log in) */
+  if(!userIsLoggedIn()){
+    console.log("user is not logged in, about to redirect");
+    window.location = './login.html';
+    return;// stop loading the page
+  }
+
+  var userID = getUserID();
+
+  // generate teams list
+  getDataFromQuery("SELECT Team_ID, Name FROM Team WHERE User_ID = '"+userID+"'", generateTeamsList);
+
+  // generate projects list
+  getDataFromQuery("SELECT Project_ID, Name FROM Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+
+  /* End Opening Logic, begin page generation logic */
+
+
+  // *************** Put all page generation scripts here. *****************
+  // the variable userID gets the current user ID.
+  // if you are on a team or projects page, the ID of the project/team you are access is in the URL.
+  // use getIDFromURL() to get the ID that is in the URL so that you get the right project or team info
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+// ***************** Methods that generate the content go here. ********************
+// Use the examples from the projects list and teams list generation methods
+// result parameter is a data type that has the follow properties:
+//    result.status = the status of the query ( should always be success as this is checked when the data is returned from the DB)
+//    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
+//    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
+//    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function generateTeamsList(result){
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#teams_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
+
+  }
+  console.log("successfully generated team list");
+
+}
+
+function generateProjectsList(result){
+
+  console.log("generating projects list...");
+  console.log(result);
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#projects_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
+
+  }
+  console.log("successfully generated projects list");
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </head>
 
@@ -53,7 +191,7 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="./" class="site_title"><i class="fa fa-database"></i> <span>TasksDB</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -89,29 +227,13 @@
                   </ul>
                 </li>
                 <li><a><i class="fa fa-users"></i> Teams <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">UI/UX</a>
-                    </li>
-                    <li><a href="#">Triage</a>
-                    </li>
-                    <li><a href="#">Scrum</a>
-                    </li>
+                  <ul class="nav child_menu" id="teams_list" style="display: none">
+
                   </ul>
                 </li>
                 <li><a><i class="fa fa-cogs"></i> Projects <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Pokedex</a>
-                    </li>
-                    <li><a href="#">CSE385 Final Project</a>
-                    </li>
-                    <li><a href="#">Movie Database Website</a>
-                    </li>
-                    <li><a href="#">Random Number Generator</a>
-                    </li>
-                    <li><a href="#">Virtual Dance Move Maker</a>
-                    </li>
-                    <li><a href="#">Final Class Scheduler</a>
-                    </li>
+                  <ul class="nav child_menu" id="projects_list" style="display: none">
+
                   </ul>
                 </li>
               </ul>
@@ -171,6 +293,79 @@
                 </ul>
               </li>
 
+              <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="badge bg-green">6</span>
+                </a>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <span class="image">
+                                        <img src="images/img.jpg" alt="Profile Image" />
+                                    </span>
+                      <span>
+                                        <span>John Smith</span>
+                      <span class="time">3 mins ago</span>
+                      </span>
+                      <span class="message">
+                                        Film festivals used to be do-or-die moments for movie makers. They were where...
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="text-center">
+                      <a href="inbox.html">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
             </ul>
           </nav>
         </div>
@@ -180,8 +375,9 @@
 
 
       <!-- page content -->
-      <div class="right_col" role="main">
+      <div class="right_col" role="main" style="min-height: 100vh">
 
+        
 
         <div class="row">
 
@@ -249,7 +445,7 @@
 
         <footer>
           <div class="copyright-info">
-            <p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            <p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>  
             </p>
           </div>
           <div class="clearfix"></div>
@@ -284,6 +480,7 @@
   <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
   <!-- chart js -->
   <script src="js/chartjs/chart.min.js"></script>
+
 
   <!-- flot js -->
   <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
