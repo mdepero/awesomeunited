@@ -87,7 +87,7 @@ function login(){
       bootbox.alert("Incorrect Email or Password");
       return;
     }
-    setCookie('userID', result.data.[0][0], 360);
+    setCookie('userID', result.data[0][0], 360);
     window.location = './';
   });
 
