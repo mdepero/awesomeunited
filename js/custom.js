@@ -110,6 +110,7 @@ function runUpdateFromQuery(query, callback){
 
             if(data.status != 'success'){
                 bootbox.alert("An error occurred: \n"+data.message);
+                return;
             }
 
             callback(data);
