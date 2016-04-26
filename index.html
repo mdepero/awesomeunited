@@ -72,10 +72,10 @@ $( document ).ready(function(){
   var userID = getUserID();
 
   // generate teams list
-  getDataFromQuery("SELECT Team_ID, Name FROM Project WHERE User_ID = '"+userID+"'", generateTeamsList);
+  getDataFromQuery("SELECT Team_ID, Name FROM Team WHERE User_ID = '"+userID+"'", generateTeamsList);
 
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Team WHERE User_ID = '"+userID+"'", generateProjectsList);
+  getDataFromQuery("SELECT Project_ID, Name FROM Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   /* End Opening Logic, begin page generation logic */
 
