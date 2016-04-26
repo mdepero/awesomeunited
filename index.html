@@ -90,7 +90,7 @@ $( document ).ready(function(){
 
 
 
-generateTeamsList(result){
+function generateTeamsList(result){
 
   table = result.data;
 
@@ -103,7 +103,7 @@ generateTeamsList(result){
 
 }
 
-generateProjectsList(result){
+function generateProjectsList(result){
 
   table = result.data;
 
@@ -112,7 +112,7 @@ generateProjectsList(result){
     $('#projects_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
 
   }
-  console.log("successfully generated team list");
+  console.log("successfully generated projects list");
 
 }
 
