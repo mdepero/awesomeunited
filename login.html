@@ -82,7 +82,14 @@ if(userIsLoggedIn() && hash != '#logout'){
 
 function login(){
 
-  
+  getDataFromQuery("SELECT User_ID FROM User WHERE Email = '"+$('#login_email').val()+"' AND Password = '"+$('#login_password').val()+"'",function(result){
+    if(result.data.length <=0){
+      bootbox.alert("Incorrect Email or Password");
+      return;
+    }
+    setCookie('userID', result.data.[0][0], 360);
+    window.location = './';
+  });
 
 }
 
@@ -154,13 +161,13 @@ function createAccount(){
           <form>
             <h1>Login Form</h1>
             <div>
-              <input type="text" class="form-control" placeholder="Username" required="" />
+              <input type="text" id="login_email" class="form-control" placeholder="Email" required="" />
             </div>
             <div>
-              <input type="password" class="form-control" placeholder="Password" required="" />
+              <input type="password" id="login_password" class="form-control" placeholder="Password" required="" />
             </div>
             <div>
-              <a class="btn btn-default submit" href="index.html">Log in</a>
+              <a class="btn btn-default submit" onclick="login();">Log in</a>
               <!--a class="reset_pass" href="#">Lost your password?</a-->
             </div>
             <div class="clearfix"></div>
