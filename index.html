@@ -86,7 +86,7 @@ function generateTeamsList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#teams_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+    $('#teams_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
 
   }
   console.log("successfully generated team list");
@@ -95,13 +95,14 @@ function generateTeamsList(result){
 
 function generateProjectsList(result){
 
+  console.log("generating projects list...");
+  console.log(result);
+
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
 
-    console.log("adding project "+table.data[i][1]+" to the projects list");
-
-    $('#projects_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
+    $('#projects_list').append('<li><a href="./team.html#'+table[i][0]+'">'+table[i][1]+'</a></li>');
 
   }
   console.log("successfully generated projects list");
