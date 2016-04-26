@@ -65,6 +65,7 @@ $( document ).ready(function(){
 
   /* Begin Opening Logic for all pages (except log in) */
   if(!userIsLoggedIn()){
+    console.log("user is not logged in, about to redirect");
     window.location = './login.html';
     return;// stop loading the page
   }
