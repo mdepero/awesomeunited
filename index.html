@@ -99,6 +99,8 @@ function generateProjectsList(result){
 
   for(var i = 0; i < table.length; i++){
 
+    console.log("adding project "+table.data[i][1]+" to the projects list");
+
     $('#projects_list').append('<li><a href="./team.html#'+table.data[i][0]+'">'+table.data[i][1]+'</a></li>');
 
   }
