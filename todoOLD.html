@@ -186,11 +186,11 @@
         <div class="row">
 
 
-              
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile fixed_height_320">
+              <!-- Start to do list -->
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Welcome</h2>
+                    <h2>To Do List <small>Sample tasks</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -201,47 +201,51 @@
                   </div>
                   <div class="x_content">
 
-                    <h4>Hello!</h4>
-
-                    <p>Welcome to TasksDB. This project lets you manage multiple projects among multiple teams and keep everything organized and in one place. This project management system keeps track of tasks, assigns tasks to teams and individuals, and provides easy to read dashboards that let you see everything you need to know at a glance.
-                    </p>
-                    <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
-                    </p>
-
-                  </div>
-                </div>
-              </div>
-              
-
-
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile">
-                  <div class="x_title">
-                    <h2>Test</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>This is a test...</h4>
-
-                    <div id="test_table">
-
+                    <div class="">
+                      <ul class="to_do">
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Schedule meeting with new client </p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Create email address for new intern</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Have IT fix the network printer</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Copy backups to offsite location</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Create email address for new intern</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Have IT fix the network printer</p>
+                        </li>
+                        <li>
+                          <p>
+                            <input type="checkbox" class="flat"> Copy backups to offsite location</p>
+                        </li>
+                      </ul>
                     </div>
-
-                    <script>
-                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                    </script>
-                    
-
                   </div>
                 </div>
               </div>
+              <!-- End to do list -->
+              
 
         </div>
 
@@ -284,6 +288,8 @@
   <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
   <!-- chart js -->
   <script src="js/chartjs/chart.min.js"></script>
+
+  <script src="js/custom.js"></script>
 
   <!-- flot js -->
   <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
