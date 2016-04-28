@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.3.css" />
   <link href="css/icheck/flat/green.css" rel="stylesheet" />
   <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+  <link href="css/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
 
   <script src="js/jquery.min.js"></script>
   <script src="js/nprogress.js"></script>
@@ -61,6 +62,8 @@ $( document ).ready(function(){
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
+  // generate team roster
+  getDataFromQuery("SELECT User_ID, User.Name FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", )
   /* End Opening Logic, begin page generation logic */
 
 
@@ -138,6 +141,16 @@ function generateProjectsList(result){
 
 }
 
+function generateTeamRoster(result){
+  console.log("generating team roster");
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
+  }
+}
+
 
 
 
@@ -151,19 +164,6 @@ function generateProjectsList(result){
 
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -381,12 +381,10 @@ function generateProjectsList(result){
 
         <div class="row">
 
-
-
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2>My Teams</h2>
+                    <h2>Team Roster</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -395,9 +393,13 @@ function generateProjectsList(result){
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="teams_list">
-                  
-
+                  <div class="x_content">
+                    <table class="dataTable" id="roster_table">
+                      <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                      </tr>
+                    </table>
 
                     <!--<h4>Hello!</h4>
 
@@ -405,7 +407,9 @@ function generateProjectsList(result){
                     </p>
                     <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
                     </p>-->
-
+                    <!--<script>
+                    $(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
+                  </script>-->
 
 
                   </div>
@@ -434,9 +438,7 @@ function generateProjectsList(result){
 
                     </div>
 
-                    <script>
-                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                    </script>
+
 
 
                   </div>
