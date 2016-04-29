@@ -51,8 +51,8 @@ $( document ).ready(function(){
     console.log("user is not logged in, about to redirect");
     window.location = './login.html';
     return;// stop loading the page
+  
   }
- testAppend();
   var userID = getUserID();
 
   // generate teams list
@@ -60,14 +60,15 @@ $( document ).ready(function(){
 
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
-
+ 
+  testAppend();
   /* End Opening Logic, begin page generation logic */
  
 /* Order tasks by due date
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task LEFT OUTER JOIN Category ON Task.Category_ID = Category.Category_ID LEFT OUTER JOIN Project ON Category.Project_ID = Project.Project_ID LEFT OUTER JOIN Member_of_project ON Project.project_ID = member_of_project.project_ID LEFT OUTER JOIN User ON member_of_project.user_id = user.user_id  WHERE User.User_ID = '"+userID+"'""ORDER BY task.Due_Date", generateTodoListByDate);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = '"+userID+"'""ORDER BY task.Due_Date", generateTodoListByDate);
   */
   /* Order tasks by Urgency
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task LEFT OUTER JOIN Category ON Task.Category_ID = Category.Category_ID LEFT OUTER JOIN Project ON Category.Project_ID = Project.Project_ID LEFT OUTER JOIN Member_of_project ON Project.project_ID = member_of_project.project_ID LEFT OUTER JOIN User ON member_of_project.user_id = user.user_id  WHERE User.User_ID = '"+userID+"'""ORDER BY task.urgency", generateTodoListByUrgency);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = '"+userID+"'""ORDER BY task.urgency", generateTodoListByUrgency);
   */
   
   // *************** Put all page generation scripts here. *****************
@@ -107,13 +108,27 @@ $( document ).ready(function(){
 
 function testAppend(){
 	for(var i=0; i<5;i++){
-	$('#todo_list').append("<li>test item</li>")
+		$('#todo_list').append("<li>test item</li>");
 	}
 
 }
 
 
-
+function updateTask(){
+	/*
+	Have to do something with this, I assume with a button or checkbox or something. Maybe the bootbox thing we talked about
+	if(task is not complete) {}
+	UPDATE Task
+	SET Completed = 1
+	WHERE Task_ID = /the task that was completed by user/
+	}
+	else {
+	UPDATE Task
+	SET Completed = 0
+	WHERE Task_ID = /the task that was not completed by user/
+	}
+	*/
+}
 
 
 
