@@ -158,13 +158,11 @@ function generateProjectsList(result){
 function updateName(){
   bootbox.prompt({title: "What is your first name?",
   value: $('#welcome-fname').html(), callback: function(result) {                
-    if (result === null) {                                             
-      // user canceled                             
-    } else {
+    if (result !== null) {
       runUpdateFromQuery("UPDATE User SET First_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){
           getDataProfilePage();
           bootbox.prompt({title: "What is your last name?",
-          value: $('#welcome-lname').html(), callback: function(result) { runUpdateFromQuery("UPDATE User SET Last_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){getDataProfilePage();});
+          value: $('#welcome-lname').html(), callback: function(result) { if(result !=== null){runUpdateFromQuery("UPDATE User SET Last_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){getDataProfilePage();}); }
           } }); 
       });                       
     }
