@@ -163,7 +163,7 @@ function createTeam(name, description){
     var userID = getUserID();
     runUpdateFromQuery("Insert into Member_Of_Team VALUES("+userID+", "+teamID+")");
   }
-  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "','"+ description +"');", addToTeam);
+  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"')", addToTeam);
 }
 
 
