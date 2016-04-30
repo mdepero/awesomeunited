@@ -159,7 +159,8 @@ function updateName(){
           getDataProfilePage();
           bootbox.prompt({title: "What is your last name?",
           value: $('#welcome-lname').html()}, function(result) { runUpdateFromQuery("UPDATE User SET Last_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){getDataProfilePage();});
-          });                         
+          }); 
+      });                       
     }
   });
 }
