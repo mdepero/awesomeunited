@@ -158,11 +158,12 @@ function generateTeamRoster(result){
 }
 
 function createTeam(name, description){
-  var teamID = getIDFromURL();
-  //some sort of insert statement
-  //I'm assuming that there is a way to do this I just don't
-  //Remember the function/can't find it
-  runupdatefromquery("INSERT INTO Team VALUES("+ teamID +","+ name + ","+ description +");");
+  function addToTeam(result){
+    var teamID = result.lastInsertedId;
+    var userID = getUserID();
+    runupdatefromquery("Insert into Member_Of_Team VALUES("+userID+", "+teamID+")");
+  }
+  runupdatefromquery("INSERT INTO Team VALUES(null, "+ name + ","+ description +");", addToTeam);
 }
 
 
