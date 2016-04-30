@@ -66,7 +66,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User_ID, concat(first_name, ' ', last_name), Team.name FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
+  getDataFromQuery("SELECT User.User_ID, concat(first_name, ' ', last_name), Team.name FROM Member_Of_Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
   /* End Opening Logic, begin page generation logic */
 
 
@@ -166,12 +166,14 @@ function createTeam(name, description){
     var teamID = result.lastInsertedID;
     console.log(teamID);
     var userID = getUserID();
-    runUpdateFromQuery("Insert into Member_Of_Team VALUES("+userID+", "+teamID+")");
+    runUpdateFromQuery("Insert into Member_Of_Team VALUES('"+userID+"', '"+teamID+"')");
     console.log("user added to team");
   }
   runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"')", addToTeam);
   console.log("team added");
 }
+
+function generateAssignedCategories
 
 
 
