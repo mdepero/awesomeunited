@@ -65,7 +65,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User_ID, concat(first_name, ' ', last_name), team_name FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
+  getDataFromQuery("SELECT User_ID, concat(first_name, ' ', last_name), Team.name FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
   /* End Opening Logic, begin page generation logic */
 
 
