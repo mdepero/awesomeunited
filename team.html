@@ -65,7 +65,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User_ID, concat(first_name, ' ', last_name) FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
+  getDataFromQuery("SELECT User_ID, concat(first_name, ' ', last_name), team_name FROM Member_Of_Team NATURAL JOIN Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
   /* End Opening Logic, begin page generation logic */
 
 
@@ -151,10 +151,12 @@ function generateTeamRoster(result){
   console.log("generating team roster");
 
   table = result.data;
-
+  $('#roster_title').append(' - '+table[0][2]);
   for(var i = 0; i < table.length; i++){
     $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
   }
+
+  console.log("successfully generated team roster");
 }
 
 function createTeam(name, description){
@@ -320,7 +322,7 @@ function createTeam(name, description){
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2>Team Roster</h2>
+                    <h2 id="roster_title">Team Roster</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -336,17 +338,6 @@ function createTeam(name, description){
                         <th>Name</th>
                       </tr>
                     </table>
-
-                    <!--<h4>Hello!</h4>
-
-                    <p>Welcome to TasksDB. This project lets you manage multiple projects among multiple teams and keep everything organized and in one place. This project management system keeps track of tasks, assigns tasks to teams and individuals, and provides easy to read dashboards that let you see everything you need to know at a glance.
-                    </p>
-                    <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
-                    </p>-->
-                    <!--<script>
-                    $(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                  </script>-->
-
 
                   </div>
                 </div>
