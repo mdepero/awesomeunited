@@ -170,9 +170,39 @@ function updateName(){
 }
 
 
+function updateEmail(){
 
+  bootbox.prompt(
+    {
+      title: "What is your new email?",
+      value: $('#welcome-email').html(), 
+      callback: function(result) {                
+        if (result !== null) {
+          runUpdateFromQuery("UPDATE User SET Email = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){
+              getDataProfilePage();
+          });                       
+        }
+      } 
+    });
 
+}
 
+function updateOrg(){
+
+  bootbox.prompt(
+    {
+      title: "What is your new organization?",
+      value: $('#welcome-org').html(), 
+      callback: function(result) {                
+        if (result !== null) {
+          runUpdateFromQuery("UPDATE User SET Organization = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){
+              getDataProfilePage();
+          });                       
+        }
+      } 
+    });
+
+}
 
 
 
