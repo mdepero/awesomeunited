@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TaskDB | Project</title>
+  <title>TaskDB | Home</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -23,6 +23,7 @@
   <link href="css/icheck/flat/green.css" rel="stylesheet" />
   <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
 
+  <script src="js/bootbox.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/nprogress.js"></script>
   <script src="js/custom.js"></script>
@@ -47,24 +48,32 @@
 $( document ).ready(function(){
 
   /* Begin Opening Logic for all pages (except log in) */
-  if(!userIsLoggedIn()){
-    console.log("user is not logged in, about to redirect");
-    window.location = './login.html';
-    return;// stop loading the page
-  }
+  //if(!userIsLoggedIn()){
+  //  console.log("user is not logged in, about to redirect");
+  //  window.location = './login.html';
+  //  return;// stop loading the page
+  //}
 
-  var userID = getUserID();
+  var projectID = getIDFromURL();
 
+  
+  runUpdateFromQuery("INSERT INTO Project VALUES (null, 'Pokedex', 'Using databases to blatantly defy Daniela Inclezan', 'CSE385', 'sharmas8@miamioh.edu')");
+  
   // generate teams list
-  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
+  //getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
 
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  //getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  
+  // generate members list
+  getDataFromQuery("SELECT User.User_ID, First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project NATURAL JOIN Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
 
   /* End Opening Logic, begin page generation logic */
 
 
   // *************** Put all page generation scripts here. *****************
+  // getDataFromQuery takes an SQL query and a callback function that gets run when the data is returned
+  // runUpdateFromQuery takes and SQL query and a callback also
   // the variable userID gets the current user ID.
   // if you are on a team or projects page, the ID of the project/team you are access is in the URL.
   // use getIDFromURL() to get the ID that is in the URL so that you get the right project or team info
@@ -138,16 +147,21 @@ function generateProjectsList(result){
 
 }
 
+function generateMembersList(result){
 
+  console.log("generating members list...");
+  console.log(result);
 
+  table = result.data;
 
+  for(var i = 0; i < table.length; i++){
 
+    $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2]);
 
+  }
+  console.log("successfully generated projects list");
 
-
-
-
-
+}
 
 
 </script>
@@ -233,7 +247,7 @@ function generateProjectsList(result){
                 </li>
                 <li><a><i class="fa fa-cogs"></i> Projects <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" id="projects_list" style="display: none">
-
+					
                   </ul>
                 </li>
               </ul>
@@ -295,72 +309,61 @@ function generateProjectsList(result){
       <!-- /top navigation -->
 
 
-      <!-- page content -->
+       <!-- page content -->
       <div class="right_col" role="main" style="min-height: 100vh">
 
-        
-
         <div class="row">
-
-
-              
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile fixed_height_320">
-                  <div class="x_title">
-                    <h2>Welcome</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>Hello!</h4>
-
-                    <p>Welcome to TasksDB. This project lets you manage multiple projects among multiple teams and keep everything organized and in one place. This project management system keeps track of tasks, assigns tasks to teams and individuals, and provides easy to read dashboards that let you see everything you need to know at a glance.
-                    </p>
-                    <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
-                    </p>
-
-                  </div>
+		
+            <div class="col-md-12">
+              <div class="x_panel">
+                <div class="x_title">
+				
+				
+				
+				<ul class="nav child_menu" id="members_list" style="display: none">
+					
+                  </ul>
+				  
+				  
+				
+					<article class="media event">
+						<a class="pull-left date">
+							<p class="day"><i class="fa fa-user" aria-hidden="true"></i></p>
+						</a>
+						<h2>Member 1</h2>
+					</article>
+                  
+					<div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+				
+					<!--The content under each member-->
+					
                 </div>
               </div>
-              
-
-
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile">
-                  <div class="x_title">
-                    <h2>Test</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>This is a test...</h4>
-
-                    <div id="test_table">
-
-                    </div>
-
-                    <script>
-                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                    </script>
-                    
-
-                  </div>
+            </div>
+			
+			<div class="col-md-12">
+              <div class="x_panel">
+                <div class="x_title">
+					<article class="media event">
+						<a class="pull-left date">
+							<p class="day"><i class="fa fa-user" aria-hidden="true"></i></p>
+						</a>
+						<h2>Member 2</h2>
+					</article>
+                  
+					<div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+				
+					<!--The content under each member-->
+					
                 </div>
               </div>
-
-        </div>
+            </div>
+			
+		</div>
 
         <!-- footer content -->
 
