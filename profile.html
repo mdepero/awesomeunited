@@ -162,7 +162,7 @@ function updateName(){
       runUpdateFromQuery("UPDATE User SET First_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){
           getDataProfilePage();
           bootbox.prompt({title: "What is your last name?",
-          value: $('#welcome-lname').html(), callback: function(result) { if(result !=== null){runUpdateFromQuery("UPDATE User SET Last_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){getDataProfilePage();}); }
+          value: $('#welcome-lname').html(), callback: function(result) { if(result !== null){runUpdateFromQuery("UPDATE User SET Last_Name = '"+result+"' WHERE User_ID = '"+getUserID()+"'",function(){getDataProfilePage();}); }
           } }); 
       });                       
     }
