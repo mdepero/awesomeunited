@@ -62,8 +62,8 @@ $( document ).ready(function(){
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
  
- // Order tasks by due date
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate);
+  // Order tasks by due date
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate);
  
   // Order tasks by Urgency
   //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project //NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Urgency", generateTodoListByUrgency);
