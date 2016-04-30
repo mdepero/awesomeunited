@@ -90,7 +90,7 @@ $( document ).ready(function(){
 
 
 function getDataProfilePage(){
-  getDataFromQuery("SELECT First_Name, Last_Name, Email, Organization, Password FROM User WHERE User_ID = '"+userID+"'", buildProfilePage);
+  getDataFromQuery("SELECT First_Name, Last_Name, Email, Organization, Password FROM User WHERE User_ID = '"+getUserID()+"'", buildProfilePage);
 }
 
 
