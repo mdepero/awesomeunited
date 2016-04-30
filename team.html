@@ -163,6 +163,7 @@ function generateTeamRoster(result){
 function createTeam(name, description){
   function addToTeam(result){
     var teamID = result.lastInsertedId;
+    console.log(teamID);
     var userID = getUserID();
     runUpdateFromQuery("Insert into Member_Of_Team VALUES("+userID+", "+teamID+")");
     console.log("user added to team");
