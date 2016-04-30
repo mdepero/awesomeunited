@@ -124,7 +124,7 @@ function generateTodoListByUrgency(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	//$('#todo_list').append("<li>"+table[][]"</li>");
+	$('#todo_list').append('<tr><td><input type="checkbox" id = "'+table[0][0]+'" onclick = "updateTask(result)"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
