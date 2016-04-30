@@ -47,12 +47,12 @@
 
 $( document ).ready(function(){
 
-  /* Begin Opening Logic for all pages (except log in) 
+  /* Begin Opening Logic for all page (except log in) */
   if(!userIsLoggedIn()){
     console.log("user is not logged in, about to redirect");
     window.location = './login.html';
     return;// stop loading the page
-  */
+
   }
   var userID = getUserID();
   test();
@@ -124,7 +124,7 @@ function updateTask(){
 
 function test() {
 	for(var i = 0; i < 5; i++){
-	$('#todo_list').append('<tr><td><input type="checkbox"></td><td>test task</td><td>test description</td><td>test project</td></tr>);
+	$('#todo_list').append('<tr><td><input type="checkbox"></td><td>test task</td><td>test description</td><td>test project</td></tr>');
 	}
 }
 
@@ -133,7 +133,7 @@ function generateTodoListByDate(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td><input type="checkbox" id = i></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
