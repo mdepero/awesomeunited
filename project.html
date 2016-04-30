@@ -54,7 +54,7 @@ $( document ).ready(function(){
   //  return;// stop loading the page
   //}
 
-  var userID = getUserID();
+  var projectID = getIDFromURL();
 
   
   runUpdateFromQuery("INSERT INTO Project VALUES (null, 'Pokedex', 'Using databases to blatantly defy Daniela Inclezan', 'CSE385', 'sharmas8@miamioh.edu')");
@@ -63,7 +63,10 @@ $( document ).ready(function(){
   //getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
 
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  //getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  
+  // generate members list
+  getDataFromQuery("SELECT User.User_ID, First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project NATURAL JOIN Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
 
   /* End Opening Logic, begin page generation logic */
 
@@ -144,16 +147,21 @@ function generateProjectsList(result){
 
 }
 
+function generateMembersList(result){
 
+  console.log("generating members list...");
+  console.log(result);
 
+  table = result.data;
 
+  for(var i = 0; i < table.length; i++){
 
+    $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2]);
 
+  }
+  console.log("successfully generated projects list");
 
-
-
-
-
+}
 
 
 </script>
@@ -309,6 +317,15 @@ function generateProjectsList(result){
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
+				
+				
+				
+				<ul class="nav child_menu" id="members_list" style="display: none">
+					
+                  </ul>
+				  
+				  
+				
 					<article class="media event">
 						<a class="pull-left date">
 							<p class="day"><i class="fa fa-user" aria-hidden="true"></i></p>
