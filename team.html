@@ -69,6 +69,9 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT User.User_ID, concat(first_name, ' ', last_name), Team.Name FROM Member_Of_Team NATURAL JOIN Team JOIN User ON User.User_ID = Member_Of_Team.User_ID WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
   /* End Opening Logic, begin page generation logic */
 
+  // generate categories the team is assigned to
+  getDataFromQuery("SELECT Project.Name, Category.Name FROM Team NATURAL JOIN Assigned_To_Category NATURAL JOIN Category JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Team_ID = '"+teamID+"'", generateAssignedCategories);
+
 
   // *************** Put all page generation scripts here. *****************
   // the variable userID gets the current user ID.
@@ -173,7 +176,15 @@ function createTeam(name, description){
   console.log("team added");
 }
 
-//function generateAssignedCategories
+function generateAssignedCategories(result){
+  console.log("generating assigned categories");
+  table = result.data;
+  for(var i = 0; i < table.length; i++){
+    $('#category_table').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
+  }
+
+  console.log("successfully generated assined categories");
+}
 
 
 
@@ -343,6 +354,27 @@ function createTeam(name, description){
                       <tr>
                         <th>User ID</th>
                         <th>Name</th>
+                      </tr>
+                    </table>
+
+                  </div>
+                </div>
+                <div class="x_panel tile fixed_height_320">
+                  <div class="x_title">
+                    <h2 id="assigned_categories_title">Assigned Categories</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="dataTable" id="category_table">
+                      <tr>
+                        <th>Project</th>
+                        <th>Category</th>
                       </tr>
                     </table>
 
