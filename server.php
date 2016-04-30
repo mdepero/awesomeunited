@@ -34,7 +34,7 @@ if(!$result){
 // ======== Query executed successfully, begin constructing return data ============
 if($_REQUEST['update'] == 'true'){
 
-	echo '{"status":"success","numRowsAffected":"'.mysqli_affected_rows ($conn).'"}';
+	echo '{"status":"success","numRowsAffected":"'.mysqli_affected_rows ($conn).'", "lastInsertedID":"'.mysqli_insert_id($conn).'"}';
 
 }else{
 	$ret = '{"status":"success","columns":[ ';
