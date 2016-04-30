@@ -27,7 +27,7 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/nprogress.js"></script>
   <script src="js/custom.js"></script>
-
+  <script src="js/bootbox.min.js"></script>
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -55,7 +55,7 @@ $( document ).ready(function(){
 
   }
   var userID = getUserID();
-  test();
+
   // generate teams list
   getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
 
@@ -63,10 +63,10 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
  
  // Order tasks by due date
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = "+userID+"ORDER BY Task.Due_Date", generateTodoListByDate);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate);
  
   // Order tasks by Urgency
-  //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project //NATURAL JOIN User WHERE User.User_ID = "+userID+"ORDER BY Task.Urgency", generateTodoListByUrgency);
+  //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project //NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Urgency", generateTodoListByUrgency);
   
   
 
@@ -104,36 +104,22 @@ $( document ).ready(function(){
 
 
 
-function updateTask(){
+function updateTask(result){
+table = result.data
+	if(document.getElementById(table[0][0]).checked == true){
+		runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = '" +table[0][0]"'");
+	}
+	else{
+		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = '" +table[0][0]"'");
+	}
 
-	
-	/*
-	Have to do something with this, I assume with a button or checkbox or something. Maybe the bootbox thing we talked about
-	if(task is not complete) {}
-	UPDATE Task
-	SET Completed = 1
-	WHERE Task_ID = /the task that was completed by user/
-	}
-	else {
-	UPDATE Task
-	SET Completed = 0
-	WHERE Task_ID = /the task that was not completed by user/
-	}
-	*/
 }
-
-function test() {
-	for(var i = 0; i < 5; i++){
-	$('#todo_list').append('<tr><td><input type="checkbox"></td><td>test task</td><td>test description</td><td>test project</td></tr>');
-	}
-}
-
 
 function generateTodoListByDate(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list').append('<tr><td><input type="checkbox" id = "'+table[0][0]+'" onclick = "updateTask(result)"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
