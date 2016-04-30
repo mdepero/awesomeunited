@@ -107,10 +107,10 @@ $( document ).ready(function(){
 function updateTask(result){
 table = result.data
 	if(document.getElementById(table[0][0]).checked == true){
-		runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = '" +table[0][0]"'");
+		runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = " +table[0][0]);
 	}
 	else{
-		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = '" +table[0][0]"'");
+		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +table[0][0]);
 	}
 
 }
