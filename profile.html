@@ -100,11 +100,11 @@ function getDataProfilePage(){
 
 
 function buildProfilePage(result){
-  console.log("About to build the profile page");
+  console.log("About to build the profile page: "+table[0][0]);
   var table = result.data;
 
   $('#welcome-fname').html(table[0][0]);
-  $('#welcome-fname').html(table[0][1]);
+  $('#welcome-lname').html(table[0][1]);
   $('#welcome-email').html(table[0][2]);
   $('#welcome-org').html(table[0][3]);
 }
@@ -348,7 +348,7 @@ function updateName(){
                   </div>
                   <div class="x_content">
 
-                    <h2>Hello <span class="welcome-fname"></span> <span class="welcome-lname"></span><a href="javascript:;" onclick="updateName();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h2>
+                    <h2>Hello <span id="welcome-fname"></span> <span id="welcome-lname"></span><a href="javascript:;" onclick="updateName();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h2>
 
                     <h4>Email: <span id="welcome-email"></span><a href="javascript:;" onclick="updateEmail();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
 
