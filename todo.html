@@ -62,14 +62,12 @@ $( document ).ready(function(){
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
  
-  testAppend();
- 
  // Order tasks by due date
   getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = "+userID+"ORDER BY Task.Due_Date", generateTodoListByDate);
  
-  /* Order tasks by Urgency
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project NATURAL JOIN User WHERE User.User_ID = '"+userID+"'""ORDER BY Task.Urgency", generateTodoListByUrgency);
-  */
+  // Order tasks by Urgency
+  //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_of_project //NATURAL JOIN User WHERE User.User_ID = "+userID+"ORDER BY Task.Urgency", generateTodoListByUrgency);
+  
   
 
   /* End Opening Logic, begin page generation logic */
@@ -106,18 +104,9 @@ $( document ).ready(function(){
 
 
 
-
-function testAppend(){
-//for testing purposes
-	for(var i = 0; i < 5; i++){
-	$('#todo_list').append('<tr><td>Test Task</td><td>This is a test task</td><td>Team Test</td></tr>');
-	}
-//end testing
-
-}
-
-
 function updateTask(){
+
+	
 	/*
 	Have to do something with this, I assume with a button or checkbox or something. Maybe the bootbox thing we talked about
 	if(task is not complete) {}
