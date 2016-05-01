@@ -170,6 +170,33 @@ function createTeam(name, description){
   console.log("team added");
 }
 
+function projectCreationPrompt(){
+  bootbox.prompt("Project Name", function(result) {
+    if (result !== null) {
+      newName = result;
+
+      bootbox.prompt("Project Description", function(result){
+        if (result !== null){
+          newDescription = result;
+          createProject(newName, newDescription);
+        }
+      });
+
+    }
+  });
+}
+
+function createProject(name, description){
+  runUpdateFromQuery("INSERT INTO Project VALUES(null, '"+ name + "', '"+ description +"', null, "+ getUserID() + ")", function(result){
+    var projectID = result.lastInsertedID;
+    //console.log(teamID);
+    var userID = getUserID();
+    runUpdateFromQuery("Insert into Member_Of_Project VALUES('"+userID+"', '"+projectID+"')");
+    console.log("user added to team");
+  });
+  console.log("project added");
+}
+
 
 
 
@@ -392,8 +419,9 @@ function createTeam(name, description){
                 </div>
               </div>
 
-              <div class="col-xs-12">
+              <div class="col-xs-12 text-right">
                 <button type="button" class="btn btn-primary" onclick="teamCreationPrompt()">New Team</button>
+                <button type="button" class="btn btn-info" onclick="projectCreationPrompt()">New Project</button>
               </div>
 
         </div>
