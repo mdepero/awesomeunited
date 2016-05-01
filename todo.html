@@ -109,7 +109,7 @@ function generateTodoListByDate(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td><button type="button" onclick = "updateTask()">Mark Completed</button></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list').append('<tr><td><button type="button" onclick = "updateTask()">Mark Completed</button></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td><td>'+table[i][3]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
@@ -324,8 +324,7 @@ function generateProjectsList(result){
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
                     <h2>Your ToDo List:</h2>					
-					<button type="button" onclick = 'getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate)'>Organize By Due Date</button>
-					<button type="button" onclick = 'getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project //NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Urgency", generateTodoListByUrgency)'>Organize By Urgency</button>
+					
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -341,6 +340,7 @@ function generateProjectsList(result){
 							<th>Complete</th>
 							<th>Task Name</th>
 							<th>Task Description</th>
+							<th>Due Date</th>
 							<th>Project Name</th>
 						</tr>
 						
