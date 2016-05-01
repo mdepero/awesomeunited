@@ -65,7 +65,8 @@ $( document ).ready(function(){
  // Order tasks by due date
   getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date;", generateTodoListByDate);
 
-
+// Order tasks by urgency
+getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+userID+"' ORDER BY Task.Urgency;", generateTodoListByUrgency);
   /* End Opening Logic, begin page generation logic */
  
 
@@ -118,7 +119,7 @@ function generateTodoListByUrgency(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td><input type="checkbox" id = "'+table[0][0]+'" onclick = "updateTask(result)"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list2').append('<tr><td><button type="button" onclick = "updateTask()">Mark Completed</button></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
@@ -323,9 +324,8 @@ function generateProjectsList(result){
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2>Your ToDo List:</h2>					
-					<button type="button" onclick = 'getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate)'>Organize By Due Date</button>
-					<button type="button" onclick = 'getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project //NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Urgency", generateTodoListByUrgency)'>Organize By Urgency</button>
+                    <h2>ToDo List Ordered By Due Date:</h2>					
+					
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -337,6 +337,33 @@ function generateProjectsList(result){
                   <div class="x_content">
 
 					<table class ="dataTable" id = "todo_list">
+						<tr>
+							<th>Complete</th>
+							<th>Task Name</th>
+							<th>Task Description</th>
+							<th>Project Name</th>
+						</tr>
+						
+					</table>
+                  </div>
+                </div>
+              </div>
+			  <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel tile fixed_height_320">
+                  <div class="x_title">
+                    <h2>ToDo List Ordered By Urgency:</h2>					
+					
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+					<table class ="dataTable" id = "todo_list2">
 						<tr>
 							<th>Complete</th>
 							<th>Task Name</th>
