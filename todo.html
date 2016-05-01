@@ -99,22 +99,35 @@ $( document ).ready(function(){
 
 
 function updateTask(id){
+
+	alert($('#button_'+id).checked);
 	
-	runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = " +id);
-	
-	$('#fullRow_'+id);
+	if($('#button_'+id).checked){
+		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +id);
+		$('#fullRow_'+id).toggleClass('done',false);
+	}else{
+		runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = " +id);
+		$('#fullRow_'+id).toggleClass('done',true);
+	}
 	
 	console.log("ran update");
 }
 
 function generateTodoList(result){
 
-$('#todo_list').html("");
+	$('#todo_list').html("");
 
-table = result.data;
+	table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="done"><td><button type=button" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'">Mark Completed</button></td><td id="name_'+table[i][3]+'">'+table[i][0]+'</td><td id="desc_'+table[i][3]+'">'+table[i][1]+'</td><td id="project_'+table[i][3]+'">'+table[i][2]+'</td></tr>');
+		
+		var rowClass = "done";
+		var checked = "checked";
+		if(table[i][4] == '0'){
+			checked = "";
+		}
+	
+		$('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="flat" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td id="name_'+table[i][3]+'">'+table[i][0]+'</td><td id="desc_'+table[i][3]+'">'+table[i][1]+'</td><td id="project_'+table[i][3]+'">'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
@@ -181,9 +194,6 @@ function generateProjectsList(result){
 
 
 </script>
-
-
-
 
 
 
@@ -336,9 +346,9 @@ function generateProjectsList(result){
 
               
               <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile fixed_height_320">
+                <div class="x_panel tile">
                   <div class="x_title">
-                    <h2>ToDo List</h2>
+                    <h2>ToDo List</h2><br/>
 						<button type="button" class="btn btn-default" onclick="getToDoByDueDate();">Order By Due Date</button> 
 						<button type="button" class="btn btn-default" onclick="getToDoByUrgency();">Order By Urgency</button>
 					
@@ -352,13 +362,17 @@ function generateProjectsList(result){
                   </div>
                   <div class="x_content">
 
-					<table class ="dataTable" id = "todo_list">
+					<table class ="dataTable">
+						<thead>
 						<tr>
 							<th>Complete</th>
 							<th>Task Name</th>
 							<th>Task Description</th>
 							<th>Project Name</th>
 						</tr>
+						</thead>
+						<tbody id="todo_list">
+						</tbody>
 						
 					</table>
                   </div>
