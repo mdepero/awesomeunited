@@ -105,16 +105,8 @@ $( document ).ready(function(){
 
 
 
-
-
-
-
-
-
+var j = 0;
 var k = 0;
-
-
-
 
 
 function generateTeamsList(result){
@@ -155,10 +147,11 @@ function generateCatList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content"><ul id="catteam_list' + i + '"></ul></div></div></div>');
-	 // generate task list for a category
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+	 // generate team list for a category
 	 var CatID = table[i][2];
 	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + CatID + "'", generateCatTeamList);
+	 getDataFromQuery("SELECT Name FROM Task Where Category_ID = '" + CatID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
@@ -174,11 +167,11 @@ function generateCatTeamList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#catteam_list' + k).append('<li>' + table[i][0] + table[i][1] + '</li>');
+    $('#catteam_list' + j).append('<li>' + table[i][1] + '</li>');
 
   }
   console.log("successfully generated team list");
-  k = k + 1;
+  j= j + 1;
   
 }
 
