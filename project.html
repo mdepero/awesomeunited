@@ -55,9 +55,11 @@ $( document ).ready(function(){
   //}
 
   var projectID = getIDFromURL();
+  var userID = getUserID();
 
   
-  runUpdateFromQuery("INSERT INTO Project VALUES (null, 'Pokedex', 'Using databases to blatantly defy Daniela Inclezan', 'CSE385', 'sharmas8@miamioh.edu')");
+  //runUpdateFromQuery("INSERT INTO Project VALUES (null, 'Pokedex', 'Using databases to blatantly defy Daniela Inclezan', 'CSE385', 'sharmas8@miamioh.edu')");
+  //runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES (
   
   // generate teams list
   //getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
@@ -68,6 +70,9 @@ $( document ).ready(function(){
   // generate members list
   getDataFromQuery("SELECT User.User_ID, First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project NATURAL JOIN Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
 
+  // generate task list for a member
+  getDataFromQuery("SELECT Name, Description, Due_Date, Urgency, Completed FROM Assigned_To_Task NATURAL JOIN Task WHERE User_ID = '" + userID, generateTasksList);
+  
   /* End Opening Logic, begin page generation logic */
 
 
@@ -156,12 +161,28 @@ function generateMembersList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2]);
+    $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2] + '</li>');
 
   }
-  console.log("successfully generated projects list");
+  console.log("successfully generated members list");
 
 }
+
+//function generateTasksList(result){
+//
+//  console.log("generating tasks list...");
+//  console.log(result);
+//
+  //table = result.data;
+//
+  //for(var i = 0; i < table.length; i++){
+//
+  //  $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2] + '</li>');
+//
+  //}
+  //console.log("successfully generated members list");
+//
+//}
 
 
 </script>
