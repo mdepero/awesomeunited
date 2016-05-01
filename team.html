@@ -87,7 +87,7 @@ $( document ).ready(function(){
 
 
 
-});
+});createTeam
 
 
 
@@ -163,7 +163,7 @@ function generateTeamRoster(result){
 }
 
 function createTeam(name, description){
-  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"', "+ getUserID() + ")", function(){
+  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"', "+ getUserID() + ")", function(result){
     var teamID = result.lastInsertedID;
     //console.log(teamID);
     var userID = getUserID();
