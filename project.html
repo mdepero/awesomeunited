@@ -108,6 +108,8 @@ $( document ).ready(function(){
 var j = 0;
 var k = 0;
 
+var projectID = getIDFromURL();
+
 
 function generateTeamsList(result){
 
@@ -191,6 +193,35 @@ function generateTasksList(result){
   k = k + 1;
   
 }
+
+
+var categoryName = "";
+var categoryDesc = "";
+
+function addCategory(){
+
+	bootbox.prompt("WEnter the assignment name:", function(result) {                
+	  if (result !== null) {  
+
+		categoryName = result;
+		
+		bootbox.prompt("Enter a description:", function(result) {                
+		  if (result !== null) {                                             
+			
+			categoryDesc = result;
+			
+			runUpdateFromQuery("INSERT INTO Category VALUES (null, " + categoryName + ", " + categoryDesc + ", " + projectID + ")");
+			location.reload();
+			
+		  }
+		});
+		
+	  }
+	});
+
+}
+
+
 
 
 </script>
@@ -341,7 +372,11 @@ function generateTasksList(result){
        <!-- page content -->
       <div class="right_col" role="main" style="min-height: 100vh">
 
-        <div class="row">					<div id="members_list">					            </div>
+        <div class="row">
+		
+			<div class="col-xs-12 text-right">
+				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
+			</div>					<div id="members_list">					            </div>
 			
 		</div>
 
