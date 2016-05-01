@@ -64,10 +64,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
   
   // generate category list
-  getDataFromQuery("SELECT Name, Description FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
-
-  // generate task list for a member
-  // getDataFromQuery("SELECT Name, Description, Due_Date, Urgency, Completed FROM Assigned_To_Task NATURAL JOIN Task WHERE User_ID = '" + userID, generateTasksList);
+  getDataFromQuery("SELECT Name, Description, Category_ID FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
   
   /* End Opening Logic, begin page generation logic */
 
@@ -108,15 +105,8 @@ $( document ).ready(function(){
 
 
 
-
-
-
-
-
-
-
-
-
+var j = 0;
+var k = 0;
 
 
 function generateTeamsList(result){
@@ -157,28 +147,50 @@ function generateCatList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-user" aria-hidden="true"></i></p></a><h2>' + table[i][0] + '</h2><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">THE MEMBERS I GUESS</div></div></div>');
-
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+	 // generate team list for a category
+	 var CatID = table[i][2];
+	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + CatID + "'", generateCatTeamList);
+	 getDataFromQuery("SELECT Name FROM Task Where Category_ID = '" + CatID + "'", generateTasksList);
+	
   }
   console.log("successfully generated category list");
 
 }
 
-//function generateTasksList(result){
-//
-//  console.log("generating tasks list...");
-//  console.log(result);
-//
-  //table = result.data;
-//
-  //for(var i = 0; i < table.length; i++){
-//
-  //  $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+'   ' + table[i][2] + '</li>');
-//
-  //}
-  //console.log("successfully generated members list");
-//
-//}
+function generateCatTeamList(result){
+
+  console.log("generating team list...");
+  console.log(result);
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#catteam_list' + j).append('<li>' + table[i][1] + '</li>');
+
+  }
+  console.log("successfully generated team list");
+  j= j + 1;
+  
+}
+
+function generateTasksList(result){
+
+  console.log("generating tasks list...");
+  console.log(result);
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#tasks_list' + k).append('<li>' + table[i][0] + '</li>');
+
+  }
+  console.log("successfully generated tasks list");
+  k = k + 1;
+  
+}
 
 
 </script>
