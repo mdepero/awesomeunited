@@ -69,7 +69,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Team JOIN Member_Of_Team on Team.Team_ID = Member_Of_Team.Team_ID JOIN User on User.User_ID = Member_Of_Team.User_ID  WHERE Team.Team_ID = '"+teamID+"'", generateTeamRoster);
 
   // generate categories the team is assigned to
-  getDataFromQuery("SELECT Project.Name, Category.Name FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team_ID = '"+teamID+"'", generateAssignedCategories);
+  getDataFromQuery("SELECT Project.Name, Category.Name FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team.Team_ID = '"+teamID+"'", generateAssignedCategories);
 
 
   // *************** Put all page generation scripts here. *****************
