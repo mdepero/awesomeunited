@@ -200,7 +200,7 @@ var categoryDesc = "";
 
 function addCategory(){
 
-	bootbox.prompt("Enter the assignment name:", function(result) {                
+	bootbox.prompt("Enter the sub project name:", function(result) {                
 	  if (result !== null) {  
 
 		categoryName = result;
@@ -209,6 +209,8 @@ function addCategory(){
 		  if (result !== null) {                                             
 			
 			categoryDesc = result;
+			
+			alert("Running update: "+"INSERT INTO Category VALUES (null, " + categoryName + ", " + categoryDesc + ", " + projectID + ")");
 			
 			runUpdateFromQuery("INSERT INTO Category VALUES (null, " + categoryName + ", " + categoryDesc + ", " + projectID + ")");
 			location.reload();
