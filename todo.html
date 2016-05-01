@@ -100,22 +100,16 @@ $( document ).ready(function(){
 
 
 
-function updateTask(result){
-table = result.data
-	if(document.getElementById(table[0][0]).checked == true){
-		runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = " +table[0][0]);
-	}
-	else{
-		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +table[0][0]);
-	}
-
+function updateTask(){
+	
+	console.log("ran update");
 }
 
 function generateTodoListByDate(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td><input type="checkbox" id = "'+table[0][0]+'" onclick = "updateTask(result)"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list').append('<tr><td><button type="button" onclick = "updateTask()"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
