@@ -95,7 +95,7 @@ function runUpdateFromQuery(query, callback){
         // API hosted on ohioporcelain.com because a backend is needed to run SQL which can't
         // be done on github
         url: "http://ohioporcelain.com/server.php?update=true",
-        data: query.replace('(','[').replace(')',']').replace("'","\\'"),// parentheses are stupid
+        data: query.replace('(','[').replace(')',']'),// parentheses are stupid
         type: "post", 
 
         cache: false,
