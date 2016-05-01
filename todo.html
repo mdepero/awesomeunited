@@ -99,6 +99,8 @@ $( document ).ready(function(){
 
 
 function updateTask(id){
+
+	alert($('#button_'+id).checked);
 	
 	if($('#button_'+id).checked){
 		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +id);
