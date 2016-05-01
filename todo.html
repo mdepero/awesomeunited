@@ -63,7 +63,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
  
  // Order tasks by due date
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task NATURAL JOIN Category NATURAL JOIN Project NATURAL JOIN Member_Of_Project NATURAL JOIN User WHERE User.User_ID = '"+userID+"' ORDER BY Task.Due_Date", generateTodoListByDate);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_of_project ON Project.project_ID = member_of_project.project_ID JOIN User ON member_of_project.user_id = user.user_id WHERE User.User_ID = '"+userID+"' ORDER BY task.Due_Date;", generateTodoListByDate);
 
 
   /* End Opening Logic, begin page generation logic */
