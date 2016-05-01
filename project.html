@@ -149,7 +149,7 @@ function generateCatList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><div class="col-xs-12 text-right"><button type="button" class="btn btn-primary" onclick="addCategory();">Add Team</button></div><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="col-xs-12 text-right"><button type="button" class="btn btn-primary" onclick="addTeam();">Add Team</button></div><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
 	 // generate team list for a category
 	 var CatID = table[i][2];
 	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + CatID + "'", generateCatTeamList);
