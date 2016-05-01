@@ -205,13 +205,7 @@ function teamCreationPrompt(){
 function addMemberToTeam(){
   var teamID = getIDFromURL();
   getDataFromQuery(
-    "SELECT User.User_ID, concat(First_Name, ' ', Last_Name) FROM User "+
-    "EXCEPT "+
-    "SELECT User.User_ID, concat(First_Name, ' ', Last_Name) "+
-    "FROM User JOIN Member_Of_Team ON User.User_ID = Member_Of_Team.User_ID "+
-      "JOIN Team ON Member_Of_Team ON Team.Team_ID = Member_Of_Team.Team_ID "+
-    "WHERE Team.Team_ID = '"+teamID+"'"
-    , addMemberToTeamPopup);
+    "SELECT User.User_ID, concat(First_Name, ' ', Last_Name) FROM User EXCEPT SELECT User.User_ID, concat(First_Name, ' ', Last_Name) FROM User JOIN Member_Of_Team ON User.User_ID = Member_Of_Team.User_ID JOIN Team ON Team.Team_ID = Member_Of_Team.Team_ID WHERE Team.Team_ID = '"+teamID+"'", addMemberToTeamPopup);
 }
 
 //callback function for query in addMemberToTeam()
