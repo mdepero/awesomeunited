@@ -63,8 +63,8 @@ $( document ).ready(function(){
   // generate projects list
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
   
-  // generate members list
-  getDataFromQuery("SELECT First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
+  // generate category list
+  getDataFromQuery("SELECT Name, Description FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
 
   // generate task list for a member
   // getDataFromQuery("SELECT Name, Description, Due_Date, Urgency, Completed FROM Assigned_To_Task NATURAL JOIN Task WHERE User_ID = '" + userID, generateTasksList);
@@ -148,19 +148,19 @@ function generateProjectsList(result){
 
 }
 
-function generateMembersList(result){
+function generateCatList(result){
 
-  console.log("generating members list...");
+  console.log("generating category list...");
   console.log(result);
 
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-user" aria-hidden="true"></i></p></a><h2>' + table[i][0] + ' ' + table[i][1] + '</h2></article><div class="clearfix"></div></div><div class="x_content">THE TASKS</div></div></div>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-user" aria-hidden="true"></i></p></a><h2>' + table[i][0] + '</h2><br><h4>' + table[i][1] + '</h4></article><div class="clearfix"></div></div><div class="x_content">THE MEMBERS I GUESS</div></div></div>');
 
   }
-  console.log("successfully generated members list");
+  console.log("successfully generated category list");
 
 }
 
