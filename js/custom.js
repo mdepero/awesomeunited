@@ -10,8 +10,6 @@
 
 
 
-
-
 /***************************************************
  * Begin code created for CSE385 Databases Project *
  ***************************************************
@@ -118,6 +116,18 @@ function runUpdateFromQuery(query, callback){
     });
 
 }
+
+// Bad fix for changing # value in URL not opening a new site
+var id = getIDFromURL();
+$(document).ready(function(){
+    setInterval(function(){
+
+        if(id != getIdFromURL()){
+            window.reload();
+        }
+
+    }, 250);
+});
 
 
 
