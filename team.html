@@ -163,15 +163,13 @@ function generateTeamRoster(result){
 }
 
 function createTeam(name, description){
-  function addToTeam(result){
-    //AAAAAAUAAUAUAUAUUUUUUUUUU what am i doing????!?!?!?
+  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"', "+ getUserID() + ")", function(){
     var teamID = result.lastInsertedID;
-    console.log(teamID);
+    //console.log(teamID);
     var userID = getUserID();
     runUpdateFromQuery("Insert into Member_Of_Team VALUES('"+userID+"', '"+teamID+"')");
     console.log("user added to team");
-  }
-  runUpdateFromQuery("INSERT INTO Team VALUES(null, '"+ name + "', '"+ description +"')", addToTeam);
+  });
   console.log("team added");
 }
 
