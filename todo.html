@@ -109,7 +109,7 @@ function generateTodoListByDate(result){
 table = result.data;
 
 	for(var i = 0; i < table.length; i++){
-	$('#todo_list').append('<tr><td><button type="button" onclick = "updateTask()"></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
+	$('#todo_list').append('<tr><td><button type="button" onclick = "updateTask()">Mark Completed</button></td><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td><td>'+table[i][2]+'</td></tr>');
 	}
 	console.log("successfully generated todo list");
 }
