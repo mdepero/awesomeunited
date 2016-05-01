@@ -122,8 +122,7 @@ var id = getIDFromURL();
 $(document).ready(function(){
     console.log("starting page reload timer");
     setInterval(function(){
-
-        if(id != getIdFromURL()){
+        if(id != getIDFromURL()){
             window.reload();
         }
 
