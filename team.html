@@ -161,7 +161,7 @@ function generateAssignedCategories(result){
   console.log("generating assigned categories");
   table = result.data;
   for(var i = 0; i < table.length; i++){
-    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'<a onclick="removeUserFromTeam('+table[i][0]+')"><i class="icon-remove-sign"></i></a></td></tr>');
+    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'<a onclick="removeUserFromTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
   }
 
   console.log("successfully generated assigned categories");
@@ -225,6 +225,7 @@ function addMemberToTeamPopup(result){
                               var teamID = getIDFromURL();
                               if(newUserID !== null){
                                 runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')");
+                                location.reload();
                               }
                           }
                       }
@@ -232,7 +233,7 @@ function addMemberToTeamPopup(result){
               }
           );
 
-  location.reload();
+
 }
 
 function removeUserFromTeam(deleteID){
