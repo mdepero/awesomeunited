@@ -263,8 +263,9 @@ function addTeamPopup(result){
                           className: "btn-success",
                           callback: function () {
                               var newTeamID = $("#addUserIDSelect").val();
-                              if(newUserID !== null){
+                              if(newTeamID !== null){
                                 runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')");
+								location.reload();
                               }
                           }
                       }
