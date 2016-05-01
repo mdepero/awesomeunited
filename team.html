@@ -60,10 +60,10 @@ $( document ).ready(function(){
   var teamID = getIDFromURL();
 
   // generate teams list
-  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
+  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team a JOIN Team b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", generateTeamsList);
 
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project a JOIN Project b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
   getDataFromQuery("SELECT User.User_ID, concat(first_name, ' ', last_name), Team.Name FROM Member_Of_Team NATURAL JOIN Team JOIN User ON User.User_ID = Member_Of_Team.User_ID WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
