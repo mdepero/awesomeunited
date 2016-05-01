@@ -123,7 +123,7 @@ $(document).ready(function(){
     console.log("starting page reload timer");
     setInterval(function(){
         if(id != getIDFromURL()){
-            window.reload();
+            location.reload();
         }
 
     }, 250);
