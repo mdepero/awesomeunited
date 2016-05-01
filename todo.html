@@ -100,9 +100,9 @@ $( document ).ready(function(){
 
 function updateTask(id){
 
-	alert($('#button_'+id).checked);
+	alert(document.getElementById('button_'+id).checked);
 	
-	if($('#button_'+id).checked){
+	if(document.getElementById('button_'+id).checked){
 		runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +id);
 		$('#fullRow_'+id).toggleClass('done',false);
 	}else{
