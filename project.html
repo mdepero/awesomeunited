@@ -148,12 +148,14 @@ function generateCatList(result){
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
-
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam();" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+	
+	var catID = table[i][2];
+	
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
 	 // generate team list for a category
-	 var CatID = table[i][2];
-	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + CatID + "'", generateCatTeamList);
-	 getDataFromQuery("SELECT Name FROM Task Where Category_ID = '" + CatID + "'", generateTasksList);
+	 
+	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
+	 getDataFromQuery("SELECT Name FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
@@ -221,16 +223,55 @@ function addCategory(){
 
 }
 
-function addTeam(){
 
-	bootbox.prompt("Enter the assignment name:", function(result) {                
-	  if (result !== null) {  
-		
-			runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES (" + teamID + ", " + catID + ")");
-			location.reload();
-		
-	  }
-	});
+//Method to be called when assigning a team to a category
+//id is the category id
+var categoryToAssignTo = "";
+function addTeam(id){
+
+  categoryToAssignTo = id;
+
+  getDataFromQuery(
+    "SELECT Team_ID, Name FROM Team WHERE Team_ID NOT IN (SELECT Team_ID FROM Assigned_To_Category WHERE Category_ID = "+id+")", addTeamPopup);
+}
+
+function addTeamPopup(result){
+  var table = result.data;
+
+  var dropdown = '<div class="row">  ' +
+    '<div class="col-md-12"> ' +
+    '<form class="form-horizontal"> ' +
+    '<div class="form-group"> ' +
+    '<label class="col-md-4 control-label" for="name">Users</label> ' +
+    '<div class="col-md-4"> '+
+    '<select id="addUserIDSelect"> ';
+
+  for (var i = 0; i < table.length; i++) {
+    dropdown +=
+      '<option value = "'+ table[i][0] +'">'+table[i][1]+'</option>';
+  }
+  
+  dropdown += '</select></div></div></form></div></div>';
+
+
+  bootbox.dialog({
+                  title: "Assign team to sub project",
+                  message:  dropdown,
+                  buttons: {
+                      success: {
+                          label: "Assign Team",
+                          className: "btn-success",
+                          callback: function () {
+                              var newTeamID = $("#addUserIDSelect").val();
+                              if(newUserID !== null){
+                                runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')");
+                              }
+                          }
+                      }
+                  }
+              }
+          );
+
 
 }
 
