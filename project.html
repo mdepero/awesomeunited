@@ -157,7 +157,7 @@ function generateCatList(result){
     $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-user" aria-hidden="true"></i></p></a><h1>' + table[i][0] + '</h1>       ' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content"><ul id="tasks_list"></ul></div></div></div>');
 	 // generate task list for a category
 	 var CatID = table[i][2];
-	 getDataFromQuery("SELECT Name FROM Task WHERE Category_ID = '" + CatID, generateTasksList);
+	 getDataFromQuery("SELECT Name FROM Task WHERE Category_ID = '" + CatID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
