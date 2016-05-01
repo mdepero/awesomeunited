@@ -61,10 +61,10 @@ $( document ).ready(function(){
   var userID = getUserID();
 
   // generate teams list
-  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team a JOIN Team b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", generateTeamsList);
+  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team AS a JOIN Team AS b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", generateTeamsList);
 
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project a JOIN Project b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
+  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
 
   /* End Opening Logic, begin page generation logic */
 
