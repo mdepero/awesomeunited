@@ -66,8 +66,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User.User_ID, concat(first_name, ' ', last_name), Team.Name FROM Member_Of_Team NATURAL JOIN Team JOIN User ON User.User_ID = Member_Of_Team.User_ID WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
-  /* End Opening Logic, begin page generation logic */
+  getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Member_Of_Team NATURAL JOIN Team JOIN User ON User.User_ID = Member_Of_Team.User_ID WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
 
   // generate categories the team is assigned to
   getDataFromQuery("SELECT Project.Name, Category.Name FROM Team NATURAL JOIN Assigned_To_Category NATURAL JOIN Category JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Team_ID = '"+teamID+"'", generateAssignedCategories);
@@ -183,7 +182,7 @@ function generateAssignedCategories(result){
     $('#category_table').append('<tr><td>'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
   }
 
-  console.log("successfully generated assined categories");
+  console.log("successfully generated assigned categories");
 }
 
 
