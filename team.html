@@ -87,7 +87,7 @@ $( document ).ready(function(){
 
 
 
-});createTeam
+});
 
 
 
@@ -98,22 +98,6 @@ $( document ).ready(function(){
 //    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
 //    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
-
-
-
-
-
-// Sam's things to ak Matt about:
-//  1)How to get team_id from url
-//  2)How to test on local machine
-//  3)How to update database
-// ^^^^^Hopefully that's it^^^^^
-
-
-
-
-
-
 
 
 
@@ -177,7 +161,7 @@ function generateAssignedCategories(result){
   console.log("generating assigned categories");
   table = result.data;
   for(var i = 0; i < table.length; i++){
-    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
+    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'<a onclick="removeUserFromTeam('+table[i][0]+')"><i class="icon-remove-sign"></i></a></td></tr>');
   }
 
   console.log("successfully generated assigned categories");
@@ -219,13 +203,14 @@ function addMemberToTeamPopup(result){
     '<div class="form-group"> ' +
     '<label class="col-md-4 control-label" for="name">Users</label> ' +
     '<div class="col-md-4"> '+
-    '<select id="addUserIDSelect"> '+
-    '<option value=null>Test</option>';
+    '<select id="addUserIDSelect"> ';
 
   for (var i = 0; i < table.length; i++) {
     dropdown +=
       '<option value = "'+ table[i][0] +'">'+table[i][1]+'</option>';
   }
+
+  dropdown+= '</select></div></div></form></div></div>';
 
 
   bootbox.dialog({
@@ -247,10 +232,14 @@ function addMemberToTeamPopup(result){
               }
           );
 
-
+  location.reload();
 }
 
-
+function removeUserFromTeam(deleteID){
+  console.log("removing user "+deleteID+" from team.")
+  runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = "+deleteID);
+  location.reload();
+}
 
 
 
