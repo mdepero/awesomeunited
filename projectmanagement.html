@@ -61,6 +61,9 @@ $( document ).ready(function(){
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
+  // get all projects assigned to
+  getDataFromQuery("SELECT a.Project_ID FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsForPM);
+
   /* End Opening Logic, begin page generation logic */
 
 
@@ -139,10 +142,33 @@ function generateProjectsList(result){
 }
 
 
+function generateProjectsForPM(result){
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Project.Project_ID = "+table[i][0], generatePMBars);
+
+  }
+
+
+}
 
 
 
+function generatePMBars(result){
 
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+//calculate progress
+//append html table to show the bar
+    
+    
+
+  }
+}
 
 
 
