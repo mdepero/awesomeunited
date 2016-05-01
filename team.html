@@ -66,7 +66,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Member_Of_Team NATURAL JOIN Team JOIN User ON User.User_ID = Member_Of_Team.User_ID WHERE Team_ID = '"+teamID+"'", generateTeamRoster);
+  getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Team JOIN Member_Of_Team on Team.Team_ID = Member_Of_Team.Team_ID JOIN User on User.User_ID = Member_Of_Team.User_ID  WHERE Team.Team_ID = '"+teamID+"'", generateTeamRoster);
 
   // generate categories the team is assigned to
   getDataFromQuery("SELECT Project.Name, Category.Name FROM Team NATURAL JOIN Assigned_To_Category NATURAL JOIN Category JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Team_ID = '"+teamID+"'", generateAssignedCategories);
