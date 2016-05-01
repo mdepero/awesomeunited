@@ -142,6 +142,22 @@ function generateProjectsList(result){
 
 }
 
+function teamCreationPrompt(){
+  bootbox.prompt("Team Name", function(result) {
+    if (result !== null) {
+      newName = result;
+
+      bootbox.prompt("Team Description", function(result){
+        if (result !== null){
+          newDescription = result;
+          createTeam(newName, newDescription);
+        }
+      });
+
+    }
+  });
+}
+
 
 
 
@@ -362,6 +378,10 @@ function generateProjectsList(result){
 
                   </div>
                 </div>
+              </div>
+
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-primary" onclick="teamCreationPrompt()">New Team</button>
               </div>
 
         </div>
