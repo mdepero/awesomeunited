@@ -95,7 +95,11 @@ $( document ).ready(function(){
 
 
 function getDataProfilePage(){
-  getDataFromQuery("SELECT First_Name, Last_Name, Email, Organization, Password FROM User WHERE User_ID = '"+getUserID()+"'", buildProfilePage);
+  if(getIDFromURL() == "" || getIDFromURL() == getUserID()){
+    getDataFromQuery("SELECT First_Name, Last_Name, Email, Organization, Password FROM User WHERE User_ID = '"+getUserID()+"'", buildProfilePage);
+  }else{
+    getDataFromQuery("SELECT First_Name, Last_Name, Email, Organization, Password FROM User WHERE User_ID = '"+getIDFromURL()+"'", buildProfilePageNoEdit);
+  }
 }
 
 
@@ -110,6 +114,20 @@ function buildProfilePage(result){
 }
 
 
+
+function buildProfilePageNoEdit(result){
+  console.log("About to build the profile page..");
+  var table = result.data;
+
+  $('#welcome-fname').html(table[0][0]);
+  $('#welcome-lname').html(table[0][1]);
+  $('#welcome-email').html(table[0][2]);
+  $('#welcome-org').html(table[0][3]);
+
+  $('#edit-name').hide();
+  $('#edit-email').hide();
+  $('#edit-org').hide();
+}
 
 
 
@@ -376,11 +394,11 @@ function updateOrg(){
                   </div>
                   <div class="x_content">
 
-                    <h2>Hello <span id="welcome-fname"></span> <span id="welcome-lname"></span> <a href="javascript:;" onclick="updateName();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h2>
+                    <h1><span id="welcome-fname"></span> <span id="welcome-lname"></span> <a href="javascript:;" onclick="updateName();" id="edit-name"><i class="fa fa-wrench" aria-hidden="true"></i></a></h1>
 
-                    <h4>Email: <span id="welcome-email"></span> <a href="javascript:;" onclick="updateEmail();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
+                    <h4>Email: <span id="welcome-email"></span> <a href="javascript:;" onclick="updateEmail();" id="edit-email"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
 
-                    <h4>Organization: <span id="welcome-org"></span> <a href="javascript:;" onclick="updateOrg();"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
+                    <h4>Organization: <span id="welcome-org"></span> <a href="javascript:;" onclick="updateOrg();" id="edit-org"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
 
                    
 
