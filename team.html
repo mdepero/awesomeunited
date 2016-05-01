@@ -140,7 +140,7 @@ function generateTeamRoster(result){
   table = result.data;
   $('#roster_title').append(' - '+table[0][2]);
   for(var i = 0; i < table.length; i++){
-    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a></td></tr>');
+    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a><a onclick="removeUserFromTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
   }
 
   console.log("successfully generated team roster");
@@ -161,7 +161,7 @@ function generateAssignedCategories(result){
   console.log("generating assigned categories");
   table = result.data;
   for(var i = 0; i < table.length; i++){
-    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'<a onclick="removeUserFromTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
+    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
   }
 
   console.log("successfully generated assigned categories");
