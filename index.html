@@ -55,9 +55,11 @@ $( document ).ready(function(){
 
   var userID = getUserID();
 
+  console.log("About to send generate Team request");
   // generate teams list
   getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
 
+  console.log("About to send generate Projects request");
   // generate projects list
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
