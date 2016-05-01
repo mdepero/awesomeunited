@@ -219,7 +219,8 @@ function addMemberToTeamPopup(result){
     '<div class="form-group"> ' +
     '<label class="col-md-4 control-label" for="name">Users</label> ' +
     '<div class="col-md-4"> '+
-    '<select id="addUserIDSelect"> ';
+    '<select id="addUserIDSelect"> '+
+    '<option value="null">Test</option>';
 
   for (var i = 0; i < table.length; i++) {
     dropdown +=
@@ -237,7 +238,9 @@ function addMemberToTeamPopup(result){
                           callback: function () {
                               var newUserID = $("#addUserIDSelect").val()
                               var teamID = getIDFromURL();
-                              runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')");
+                              if(newUserID !== null){
+                                runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')");
+                              }
                           }
                       }
                   }
