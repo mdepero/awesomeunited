@@ -157,7 +157,7 @@ function generateMembersList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<li>'+table[i][0]+'   '+table[i][1]+ '</li>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-user" aria-hidden="true"></i></p></a><h2>' + table[i][0] + ' ' + table[i][1] + '</h2></article><div class="clearfix"></div></div><div class="x_content">THE TASKS</div></div></div>');
 
   }
   console.log("successfully generated members list");
@@ -329,56 +329,7 @@ function generateMembersList(result){
        <!-- page content -->
       <div class="right_col" role="main" style="min-height: 100vh">
 
-        <div class="row">
-		
-            <div class="col-md-12">
-              <div class="x_panel">
-                <div class="x_title">
-				
-				
-				
-				<ul class="nav child_menu" id="members_list">
-					
-                  </ul>
-				  
-				  
-				
-					<article class="media event">
-						<a class="pull-left date">
-							<p class="day"><i class="fa fa-user" aria-hidden="true"></i></p>
-						</a>
-						<h2>Member 1</h2>
-					</article>
-                  
-					<div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-				
-					<!--The content under each member-->
-					
-                </div>
-              </div>
-            </div>
-			
-			<div class="col-md-12">
-              <div class="x_panel">
-                <div class="x_title">
-					<article class="media event">
-						<a class="pull-left date">
-							<p class="day"><i class="fa fa-user" aria-hidden="true"></i></p>
-						</a>
-						<h2>Member 2</h2>
-					</article>
-                  
-					<div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-				
-					<!--The content under each member-->
-					
-                </div>
-              </div>
-            </div>
+        <div class="row">					<div id="members_list">					            </div>
 			
 		</div>
 
