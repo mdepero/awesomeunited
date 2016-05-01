@@ -108,6 +108,8 @@ $( document ).ready(function(){
 var j = 0;
 var k = 0;
 
+var projectID = getIDFromURL();
+
 
 function generateTeamsList(result){
 
@@ -147,7 +149,7 @@ function generateCatList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam();" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
 	 // generate team list for a category
 	 var CatID = table[i][2];
 	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + CatID + "'", generateCatTeamList);
@@ -190,6 +192,46 @@ function generateTasksList(result){
   console.log("successfully generated tasks list");
   k = k + 1;
   
+}
+
+
+var categoryName = "";
+var categoryDesc = "";
+
+function addCategory(){
+
+	bootbox.prompt("Enter the sub project name:", function(result) {                
+	  if (result !== null) {  
+
+		categoryName = result;
+		
+		bootbox.prompt("Enter a description:", function(result) {                
+		  if (result !== null) {                                             
+			
+			categoryDesc = result;
+			
+			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")");
+			location.reload();
+			
+		  }
+		});
+		
+	  }
+	});
+
+}
+
+function addTeam(){
+
+	bootbox.prompt("Enter the assignment name:", function(result) {                
+	  if (result !== null) {  
+		
+			runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES (" + teamID + ", " + catID + ")");
+			location.reload();
+		
+	  }
+	});
+
 }
 
 
@@ -341,7 +383,11 @@ function generateTasksList(result){
        <!-- page content -->
       <div class="right_col" role="main" style="min-height: 100vh">
 
-        <div class="row">					<div id="members_list">					            </div>
+        <div class="row">
+		
+			<div class="col-xs-12 text-right">
+				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
+			</div>					<div id="members_list">					            </div>
 			
 		</div>
 
