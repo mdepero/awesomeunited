@@ -64,7 +64,8 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
   
   // generate members list
-  getDataFromQuery("SELECT First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project JOIN Project ON Member_Of_Project.Project_ID = Project.Project_ID WHERE Project.Project_ID = '" + projectID + "'", generateMembersList);
+  getDataFromQuery("SELECT First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
+  getDataFromQuery("SELECT First_Name, Last_Name FROM User NATURAL JOIN Member_Of_Project WHERE Project_ID = '" + projectID + "'", generateMembersList);
 
   // generate task list for a member
   // getDataFromQuery("SELECT Name, Description, Due_Date, Urgency, Completed FROM Assigned_To_Task NATURAL JOIN Task WHERE User_ID = '" + userID, generateTasksList);
