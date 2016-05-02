@@ -162,27 +162,27 @@ function generateTodoListPersonal(result){
 function getToDoByDueDate(){
 
  // Order tasks by
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Project.Project_ID, Task.Due_Date;", generateTodoList);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
 
 }
 
 function getToDoByUrgency(){
   
 // Order tasks by urgency
-getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Project.Project_ID, Task.Urgency;", generateTodoList);
+getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoList);
 
 }
 
 
 function getToDoByDueDatePersonal(){
 
-  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Project.Project_ID, Task.Due_Date;", generateTodoListPersonal);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoListPersonal);
 
 }
 
 function getToDoByUrgencyPersonal(){
   
-  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Project.Task.Urgency DESC;", generateTodoListPersonal);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoListPersonal);
 
 }
 
