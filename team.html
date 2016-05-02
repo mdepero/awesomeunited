@@ -102,7 +102,7 @@ $( document ).ready(function(){
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
 
 function buildCategoryBlocks(){
-  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"' ORDER BY Project.Project_ID", generateCategoryBlocks);
+  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+getIDFromURL()+"' ORDER BY Project.Project_ID", generateCategoryBlocks);
 }
 
 function generateCategoryBlocks(result){
