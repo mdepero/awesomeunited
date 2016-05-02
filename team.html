@@ -69,7 +69,7 @@ $( document ).ready(function(){
   buildTeamList();
 
   // generate categories the team is assigned to
-  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"'", generateCategoryBlocks);
+  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"'", generateCategoryBlocks);
 
   // load team meta data
   getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamMetaData);
@@ -107,7 +107,7 @@ function generateCategoryBlocks(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#category_blocks').append('<div class="col-xs-12"><div class="x_panel tile"><div class="x_title"><h2>'+table[i][2]+' - '+table[i][1]+'</h2><div class="clear-fix" style="clear:both;"></div><br/><button type="button" class="btn btn-default" onclick="getToDoByDueDate('+table[i][0]+');">Due Date</button> <button type="button" class="btn btn-default" onclick="getToDoByUrgency('+table[i][0]+');">By Urgency</button><div class="clearfix"></div></div><div class="x_content"><table class ="dataTable table table-striped table-hover"><thead><th>Complete</th><th>Task Name</th><th>Task Description</th><th>Due Date</th><th>Urgency</th></thead><tbody id="todo_list_'+table[i][0]+'"></tbody></table></div></div></div>');
+    $('#category_blocks').append('<div class="col-xs-12"><div class="x_panel tile"><div class="x_title"><h2><a href="./project.html#"'+table[i][3]+'"'+table[i][2]+' - '+table[i][1]+'</h2><div class="clear-fix" style="clear:both;"></div><br/><button type="button" class="btn btn-default" onclick="getToDoByDueDate('+table[i][0]+');">Due Date</button> <button type="button" class="btn btn-default" onclick="getToDoByUrgency('+table[i][0]+');">By Urgency</button><div class="clearfix"></div></div><div class="x_content"><table class ="dataTable table table-striped table-hover"><thead><th>Complete</th><th>Task Name</th><th>Task Description</th><th>Due Date</th><th>Urgency</th></thead><tbody id="todo_list_'+table[i][0]+'"></tbody></table></div></div></div>');
 
     getToDoByDueDate(table[i][0]);
   }
