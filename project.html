@@ -172,15 +172,15 @@ function generateCatTeamList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#cat_team_list_' + table[i][2]).append('<li>' + table[i][1] + ' <a href="javascript:;" onclick="unassignTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></li>');
+    $('#cat_team_list_' + table[i][2]).append('<li>' + table[i][1] + ' <a href="javascript:;" onclick="unassignTeam('+table[i][0]+','+table[i][2]+')"><i class="fa fa-times"></i></a></li>');
 
   }
   console.log("successfully generated team list");
   
 }
 
-function unassignTeam(id){
-  runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Project_ID = '"+projectID+"' AND Category_ID = '"+id+"'", function(){
+function unassignTeam(cat_id, team_id){
+  runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Team_ID = '"+team_id+"' AND Category_ID = '"+cat_id+"'", function(){
     location.reload();
   });
 }
