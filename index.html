@@ -144,7 +144,7 @@ function generateProjectsList(result){
 }
 
 function teamCreationPrompt(){
-  bootbox.prompt("Team Name", function(result) {
+  bootbox.prompt("New Team Name", function(result) {
     if (result !== null) {
       newName = result;
 
@@ -166,6 +166,7 @@ function createTeam(name, description){
     var userID = getUserID();
     runUpdateFromQuery("Insert into Member_Of_Team VALUES('"+userID+"', '"+teamID+"')");
     console.log("user added to team");
+    window.location = './team.html#'+teamID;
   });
   console.log("team added");
 }
