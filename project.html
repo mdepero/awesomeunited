@@ -152,11 +152,11 @@ function generateCatList(result){
 	
 	  var catID = table[i][2];
 	
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="cat_team_list_' + catID + '"></ul>Tasks:<br><ul id="cat_tasks_list_' + catID + '"></ul></div></div></div>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Assigned Teams:<ul id="cat_team_list_' + catID + '"></ul>Tasks:<br><ul id="cat_tasks_list_' + catID + '"></ul></div></div></div>');
 	 // generate team list for a category
 	 
-	 getDataFromQuery("SELECT Name, Category_ID FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
-	 getDataFromQuery("SELECT Name, Category_ID FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
+	 getDataFromQuery("SELECT Team_ID, Name, Category_ID FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
+	 getDataFromQuery("SELECT Task_ID, Name, Category_ID FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
@@ -172,11 +172,17 @@ function generateCatTeamList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#cat_team_list_' + table[i][1]).append('<li>' + table[i][0] + '<i>X [change]</i></li>');
+    $('#cat_team_list_' + table[i][2]).append('<li>' + table[i][1] + ' <a href="javascript:;" onclick="unassignTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></li>');
 
   }
   console.log("successfully generated team list");
   
+}
+
+function unassignTeam(id){
+  runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Project_ID = '"+project_ID+"' AND Category_ID = '"+id+"'", function(){
+    location.reload();
+  });
 }
 
 function generateTasksList(result){
@@ -188,7 +194,7 @@ function generateTasksList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#cat_tasks_list_' + table[i][1]).append('<li>' + table[i][0] + '<i>X [change]</i></li>');
+    $('#cat_tasks_list_' + table[i][2]).append('<li>' + table[i][1] + ' <i class="fa fa-times"></i></li>');
 
   }
   console.log("successfully generated tasks list");
