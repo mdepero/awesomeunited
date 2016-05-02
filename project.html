@@ -190,8 +190,7 @@ function generateProjectMemberRoster(result){
 
 function removeUserFromProject(deleteID){
   console.log("removing user "+deleteID+" from Project.")
-  runUpdateFromQuery("DELETE FROM Member_Of_Project WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'", function(){});
-  buildProjectList();
+  runUpdateFromQuery("DELETE FROM Member_Of_Project WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'", function(){buildProjectList();});
 }
 
 

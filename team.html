@@ -332,8 +332,7 @@ function addMemberToTeamPopup(result){
                               var newUserID = $("#addUserIDSelect").val()
                               var teamID = getIDFromURL();
                               if(newUserID !== null){
-                                runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')", function(){});
-                                buildTeamList();
+                                runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')", function(){buildTeamList();}); 
                               }
                           }
                       }
@@ -344,8 +343,7 @@ function addMemberToTeamPopup(result){
 
 function removeUserFromTeam(deleteID){
   console.log("removing user "+deleteID+" from team.")
-  runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = '"+deleteID+"' AND Team_ID = '"+getIDFromURL()+"'", function(){});
-  buildTeamList();
+  runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = '"+deleteID+"' AND Team_ID = '"+getIDFromURL()+"'", function(){buildTeamList();});
 }
 
 
