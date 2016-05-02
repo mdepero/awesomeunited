@@ -145,7 +145,7 @@ function generateTodoList(result){
       checked = "";
     }
   
-    $('#todo_list_'+catID).append('<tr class="fullRow_'+table[i][2]+' '+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success button_'+table[i][2]+'" onclick = "updateTask(this, '+table[i][2]+')" '+checked+'></td><td onclick="editField("Name", "name",'+table[i][0]+', '+table[i][2]+')">'+table[i][0]+'</td><td onclick="editField("Description", "description",'+table[i][1]+','+table[i][2]+')">'+table[i][1]+'</td><td onclick="editField("Due_Date", "due date (YYYY-MM-DD)",'+table[i][4]+','+table[i][2]+')">'+table[i][4]+'</td><td onclick="editField("Urgency", "urgency (1-5, 5=Most Urgent)",'+table[i][5]+','+table[i][2]+')">'+table[i][5]+'</td></tr>');
+    $('#todo_list_'+catID).append('<tr class="fullRow_'+table[i][2]+' '+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success button_'+table[i][2]+'" onclick = "updateTask(this, '+table[i][2]+')" '+checked+'></td><td onclick="editField(\'Name\', \'name\',\''+table[i][0]+'\', \''+table[i][2]+'\')">'+table[i][0]+'</td><td onclick="editField(\'Description\', \'description\',\''+table[i][1]+'\',\''+table[i][2]+'\')">'+table[i][1]+'</td><td onclick="editField(\'Due_Date\', \'due date (YYYY-MM-DD)\',\''+table[i][4]+'\',\''+table[i][2]+'\')">'+table[i][4]+'</td><td onclick="editField(\'Urgency\', \'urgency (1-5, 5=Most Urgent)\',\''+table[i][5]+'\',\''+table[i][2]+'\')">'+table[i][5]+'</td></tr>');
   }
   console.log("successfully generated todo list");
 }
