@@ -104,10 +104,7 @@ $( document ).ready(function(){
 
 
 
-
-var j = 0;
-var k = 0;
-
+// global project id for the page
 var projectID = getIDFromURL();
 
 
@@ -140,6 +137,10 @@ function generateProjectsList(result){
 
 }
 
+
+
+
+
 function generateCatList(result){
 
   console.log("generating category list...");
@@ -149,13 +150,13 @@ function generateCatList(result){
 
   for(var i = 0; i < table.length; i++){
 	
-	var catID = table[i][2];
+	  var catID = table[i][2];
 	
-    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="catteam_list' + i + '"></ul>Tasks:<br><ul id="tasks_list' + i + '"></ul></div></div></div>');
+    $('#members_list').append('<div class="col-md-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Teams:<ul id="cat_team_list_' + catID + '"></ul>Tasks:<br><ul id="cat_tasks_list_' + catID + '"></ul></div></div></div>');
 	 // generate team list for a category
 	 
-	 getDataFromQuery("SELECT Team_ID, Name FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
-	 getDataFromQuery("SELECT Name FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
+	 getDataFromQuery("SELECT Name, Category_ID FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
+	 getDataFromQuery("SELECT Name, Category_ID FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
@@ -171,11 +172,10 @@ function generateCatTeamList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#catteam_list' + j).append('<li>' + table[i][1] + '</li>');
+    $('#cat_team_list_' + table[i][1]).append('<li>' + table[i][0] + '<i>X [change]</i></li>');
 
   }
   console.log("successfully generated team list");
-  j= j + 1;
   
 }
 
@@ -188,11 +188,10 @@ function generateTasksList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#tasks_list' + k).append('<li>' + table[i][0] + '</li>');
+    $('#cat_tasks_list_' + table[i][1]).append('<li>' + table[i][0] + '<i>X [change]</i></li>');
 
   }
   console.log("successfully generated tasks list");
-  k = k + 1;
   
 }
 
@@ -429,7 +428,11 @@ function addTeamPopup(result){
 		
 			<div class="col-xs-12 text-right">
 				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
-			</div>					<div id="members_list">					            </div>
+			</div>
+		
+			<div id="members_list">
+					
+            </div>
 			
 		</div>
 
