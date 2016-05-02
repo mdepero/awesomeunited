@@ -197,7 +197,7 @@ function createProject(name, description){
     projectIDMade = projectID;
     //console.log(teamID);
     var userID = getUserID();
-    runUpdateFromQuery("Insert into Member_Of_Project VALUES('"+userID+"', '"+projectID+"')"function(){window.location = './project.html#'+projectIDMade;});
+    runUpdateFromQuery("Insert into Member_Of_Project VALUES('"+userID+"', '"+projectID+"')",function(){window.location = './project.html#'+projectIDMade;});
     console.log("user added to project");
   });
   console.log("project added");
