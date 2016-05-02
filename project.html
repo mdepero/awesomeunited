@@ -179,7 +179,7 @@ function generateCatTeamList(result){
   
 }
 
-function unassignTeam(cat_id, team_id){
+function unassignTeam(team_id, cat_id){
   runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Team_ID = '"+team_id+"' AND Category_ID = '"+cat_id+"'", function(result){
     console.log(result);
   });
