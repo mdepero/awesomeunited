@@ -163,7 +163,7 @@ function generateCatList(result){
 
 }
 
-loadAssignedTeams(catID){
+function loadAssignedTeams(catID){
   getDataFromQuery("SELECT Team_ID, Name, Category_ID FROM Assigned_To_Category NATURAL JOIN Team WHERE Category_ID = '" + catID + "'", generateCatTeamList);
 }
 
