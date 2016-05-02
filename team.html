@@ -146,7 +146,7 @@ function generateTeamRoster(result){
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
-    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a><a onclick="removeUserFromTeam('+table[i][0]+')"> <i class="fa fa-times"></i></a></td></tr>');
+    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a> <a onclick="removeUserFromTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
   }
 
   console.log("successfully generated team roster");
@@ -245,7 +245,7 @@ function addMemberToTeamPopup(result){
 function removeUserFromTeam(deleteID){
   console.log("removing user "+deleteID+" from team.")
   runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = "+deleteID);
-  location.reload();
+  buildTeamList();
 }
 
 
