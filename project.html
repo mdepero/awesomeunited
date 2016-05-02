@@ -169,7 +169,8 @@ function generateCatList(result){
 	 // generate team list for a category
 	 
 	 loadAssignedTeams(catID);
-	 getDataFromQuery("SELECT Task_ID, Name, Category_ID, Completed FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
+   // injecting category ID into the name of the category field so that it can be used when there are not tasks
+	 getDataFromQuery("SELECT Task_ID, Name, Category_ID as "+catID+", Completed FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
@@ -228,7 +229,7 @@ function generateTasksList(result){
   if(tasksCount != 0){
     $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
   }else{
-    $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
+    $('#cat_tasks_list_' + result.columns[3]).append('Not Started Yet');
   }
 
   console.log("successfully generated tasks list");
