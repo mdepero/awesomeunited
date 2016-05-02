@@ -170,7 +170,7 @@ function generateCatList(result){
 	 
 	 loadAssignedTeams(catID);
    // injecting category ID into the name of the category field so that it can be used when there are not tasks
-	 getDataFromQuery("SELECT Task_ID, Name, Category_ID as ["+catID+"], Completed FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
+	 getDataFromQuery("SELECT Task_ID, Name, Category_ID as \""+catID+"\", Completed FROM Task Where Category_ID = '" + catID + "'", generateTasksList);
 	
   }
   console.log("successfully generated category list");
