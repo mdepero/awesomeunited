@@ -71,6 +71,8 @@ $( document ).ready(function(){
   // generate categories the team is assigned to
   getDataFromQuery("SELECT Project.Name, Category.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team.Team_ID = '"+teamID+"'", generateAssignedCategories);
 
+  // load team meta data
+  getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User", generateTeamMetaData);
 
   // *************** Put all page generation scripts here. *****************
   // the variable userID gets the current user ID.
@@ -98,6 +100,18 @@ $( document ).ready(function(){
 //    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
 //    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
+
+
+function generateTeamMetaData(result){
+
+  var table = result.data;
+
+  $('#team-name').html(table[0][0]);
+  $('#team-description').html(table[0][1]);
+  $('#team-leader').html(table[0][2]+' '+team[0][3]);
+
+}
+
 
 
 
@@ -397,8 +411,14 @@ function removeUserFromTeam(deleteID){
 
         <div class="row">
 
+              <div class="col-xs-12">
+                <h1 id="team-name"></h1>
+                <h3>Team Leader: <span id="team-leader"></span></h3>
+                <p id="team-description"></p>
+              </div>
+
               <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile fixed_height_320">
+                <div class="x_panel tile">
                   <div class="x_title">
                     <h2>Team Roster</h2>
                     <ul class="nav navbar-right panel_toolbox">
