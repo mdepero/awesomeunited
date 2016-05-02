@@ -215,9 +215,10 @@ function generateTasksList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#cat_tasks_list_' + table[i][2]).append('<li>' + table[i][1] + ' <i class="fa fa-times"></i></li>');
+    
 
   }
+  $('#cat_tasks_list_' + table[i][2]).append('This is going to be a progress bar');
   console.log("successfully generated tasks list");
   
 }
