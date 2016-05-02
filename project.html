@@ -183,13 +183,13 @@ function generateProjectMemberRoster(result){
     $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a> <a href="javascript:;" onclick="removeUserFromProject('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
   }
 
-  console.log("successfully generated team roster");
+  console.log("successfully generated project member roster");
 }
 
 
 function removeUserFromProject(deleteID){
-  console.log("removing user "+deleteID+" from team.")
-  runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'");
+  console.log("removing user "+deleteID+" from Project.")
+  runUpdateFromQuery("DELETE FROM Member_Of_Project WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'");
   buildProjectList();
 }
 
