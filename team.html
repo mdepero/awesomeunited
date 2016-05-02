@@ -122,7 +122,7 @@ var catToAddTaskTo = "";
 function addTask(catID){
 
   catToAddTaskTo = catID;// bad global variable for updating upon return
-  bootbox.prompt("What is the name of the new task?",function(){
+  bootbox.prompt("What is the name of the new task?",function(result){
     runUpdateFromQuery("INSERT INTO Task (Name, Category_ID) VALUES ('"+result+"','"+catToAddTaskTo+"')",function(){
       getToDoByDueDate(catToAddTaskTo);
     });
