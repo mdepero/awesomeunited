@@ -229,7 +229,7 @@ function generateTasksList(result){
   if(tasksCount != 0){
     $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
   }else{
-    $('#cat_tasks_list_' + result.columns[3]).append('Not Started Yet');
+    $('#cat_tasks_list_' + result.columns[2]).append('Not Started Yet');
   }
 
   console.log("successfully generated tasks list");
