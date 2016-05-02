@@ -144,7 +144,7 @@ function generateTeamRoster(result){
   $('#roster_table').html("");
 
   table = result.data;
-  $('#roster_title').append(' - '+table[0][2]);
+  $('#roster_title').html(' - '+table[0][2]);
   for(var i = 0; i < table.length; i++){
     $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a><a onclick="removeUserFromTeam('+table[i][0]+')"> <i class="fa fa-times"></i></a></td></tr>');
   }
@@ -400,7 +400,7 @@ function removeUserFromTeam(deleteID){
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2 id="roster_title">Team Roster</h2>
+                    <h2>Team Roster - <span id="roster_title"></span></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a onclick="addMemberToTeam()"><i class="fa fa-plus"></i></a>
                       </li>
