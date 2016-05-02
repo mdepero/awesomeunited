@@ -135,6 +135,12 @@ function generateProjectMemberRoster(result){
 }
 
 
+function removeUserFromProject(deleteID){
+  console.log("removing user "+deleteID+" from team.")
+  runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'");
+  buildTeamList();
+}
+
 
 
 function generateProjectMetaData(result){
