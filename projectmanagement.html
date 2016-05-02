@@ -55,11 +55,13 @@ $( document ).ready(function(){
 
   var userID = getUserID();
 
+  console.log("About to send generate Team request");
   // generate teams list
-  getDataFromQuery("SELECT Team_ID, Name FROM Member_Of_Team NATURAL JOIN Team WHERE User_ID = '"+userID+"'", generateTeamsList);
+  getDataFromQuery("SELECT a.Team_ID, Name FROM Member_Of_Team AS a JOIN Team AS b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", generateTeamsList);
 
+  console.log("About to send generate Projects request");
   // generate projects list
-  getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
+  getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
 
   // get all projects assigned to
   getDataFromQuery("SELECT a.Project_ID, b.Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsForPM);
@@ -323,37 +325,11 @@ console.log("appended progress_bar");
 
         <div class="row">
 
-
               
               <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                   <div class="x_title">
-                    <h2>Welcome</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>Hello!</h4>
-
-                    <p>Welcome to TasksDB. This project lets you manage multiple projects among multiple teams and keep everything organized and in one place. This project management system keeps track of tasks, assigns tasks to teams and individuals, and provides easy to read dashboards that let you see everything you need to know at a glance.
-                    </p>
-                    <p>This website is just a prototype of what the final page will look like. Eventually, the content of this page will be populated by data from the database and will be able to be edited from within the site.
-                    </p>
-
-                  </div>
-                </div>
-              </div>
-              
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile fixed_height_320">
-                  <div class="x_title">
-                    <h2 id="roster_title">Project Manager</h2>
+                    <h1 id="roster_title">Project Manager</h1>
                     <ul class="nav navbar-right panel_toolbox">
                      <!--  <li><a onclick="addMemberToTeam()"><i class="fa fa-plus"></i></a>
                       </li> -->
@@ -377,34 +353,6 @@ console.log("appended progress_bar");
                 </div>
               </div>
 
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile">
-                  <div class="x_title">
-                    <h2>Test</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>This is a test...</h4>
-
-                    <div id="test_table">
-
-                    </div>
-
-                    <script>
-                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                    </script>
-                    
-
-                  </div>
-                </div>
-              </div>
 
         </div>
 
