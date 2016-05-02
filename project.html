@@ -66,8 +66,7 @@ $( document ).ready(function(){
 
   getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Project NATURAL JOIN User WHERE Project_ID = '"+projectID+"'", generateProjectMetaData);
   
-  // generate category list
-  getDataFromQuery("SELECT Name, Description, Category_ID FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
+  buildCatList();
   
   /* End Opening Logic, begin page generation logic */
 
@@ -112,6 +111,11 @@ $( document ).ready(function(){
 // global project id for the page
 var projectID = getIDFromURL();
 
+
+function buildCatList(){
+  // generate category list
+  getDataFromQuery("SELECT Name, Description, Category_ID FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
+}
 
 
 //Method to be called when adding a member to the team
@@ -244,6 +248,8 @@ function generateCatList(result){
   console.log("generating category list...");
   console.log(result);
 
+  $('#members_list').html("");
+
   table = result.data;
 
   for(var i = 0; i < table.length; i++){
@@ -332,17 +338,17 @@ function addCategory(){
 	bootbox.prompt("Enter the sub project name:", function(result) {                
 	  if (result !== null) {  
 
-		categoryName = result;
-		
-		bootbox.prompt("Enter a description:", function(result) {                
-		  if (result !== null) {                                             
-			
-			categoryDesc = result;
-			
-			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")", function(){location.reload();});
-			
-		  }
-		});
+  		categoryName = result;
+  		
+  		bootbox.prompt("Enter a description:", function(result) {                
+  		  if (result !== null) {                                             
+  			
+  			categoryDesc = result;
+  			
+  			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")", function(){buildCatList();});
+  			
+  		  }
+  		});
 		
 	  }
 	});
