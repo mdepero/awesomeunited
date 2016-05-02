@@ -66,7 +66,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
 
   // generate team roster
-  getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Team JOIN Member_Of_Team on Team.Team_ID = Member_Of_Team.Team_ID JOIN User on User.User_ID = Member_Of_Team.User_ID  WHERE Team.Team_ID = '"+teamID+"'", generateTeamRoster);
+  buildTeamList();
 
   // generate categories the team is assigned to
   getDataFromQuery("SELECT Project.Name, Category.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team.Team_ID = '"+teamID+"'", generateAssignedCategories);
@@ -101,7 +101,11 @@ $( document ).ready(function(){
 
 
 
+function buildTeamList(){
+  var teamID = getIDFromURL();
 
+  getDataFromQuery("SELECT User.User_ID, concat(First_Name, ' ', Last_Name), Team.Name FROM Team JOIN Member_Of_Team on Team.Team_ID = Member_Of_Team.Team_ID JOIN User on User.User_ID = Member_Of_Team.User_ID  WHERE Team.Team_ID = '"+teamID+"'", generateTeamRoster);
+}
 
 
 
@@ -136,6 +140,8 @@ function generateProjectsList(result){
 
 function generateTeamRoster(result){
   console.log("generating team roster");
+
+  $('#roster_table').html("");
 
   table = result.data;
   $('#roster_title').append(' - '+table[0][2]);
@@ -225,7 +231,7 @@ function addMemberToTeamPopup(result){
                               var teamID = getIDFromURL();
                               if(newUserID !== null){
                                 runUpdateFromQuery("INSERT INTO Member_Of_Team VALUES('"+newUserID+"', '"+teamID+"')");
-                                location.reload();
+                                buildTeamList();
                               }
                           }
                       }
@@ -402,11 +408,15 @@ function removeUserFromTeam(deleteID){
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table class="dataTable" id="roster_table">
-                      <tr>
-                        <th>User ID</th>
-                        <th>Name</th>
-                      </tr>
+                    <table class="dataTable">
+                      <thead>
+                        <tr>
+                          <th>User ID</th>
+                          <th>Name</th>
+                        </tr>
+                      </thead>
+                      <tbody id="roster_table">
+                      </tbody>
                     </table>
 
                   </div>
