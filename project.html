@@ -165,7 +165,7 @@ function generateCatList(result){
 	
 	  var catID = table[i][2];
 	
-    $('#members_list').append('<div class="col-xs-12"><div class="x_panel"><div class="x_title"><article class="media event"><button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Assigned Teams:<ul id="cat_team_list_' + catID + '"></ul>Tasks:<br><div id="cat_tasks_list_' + catID + '"></div></div></div></div>');
+    $('#members_list').append('<div class="col-xs-12"><div class="x_panel"><div class="x_title"><article class="media event"><!--<button type="button" class="btn btn-default" onclick="addTask();" style="float:right;">Add Task</button>--><button type="button" class="btn btn-default" onclick="addTeam(' + catID + ');" style="float:right;">Add Team</button><a class="pull-left date"><p class="day"><i class="fa fa-folder-open" aria-hidden="true"></i></p></a><b>' + table[i][0] + '</b><br>' + table[i][1] + '</article><div class="clearfix"></div></div><div class="x_content">Assigned Teams:<ul id="cat_team_list_' + catID + '"></ul>Tasks:<br><div id="cat_tasks_list_' + catID + '"></div></div></div></div>');
 	 // generate team list for a category
 	 
 	 loadAssignedTeams(catID);
@@ -224,7 +224,12 @@ function generateTasksList(result){
     tasksCount++;
 
   }
-  $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
+
+  if(tasksCount != 0){
+    $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
+  }else{
+    $('#cat_tasks_list_' + table[0][2]).append('progress bar: '+completedCount+'/'+tasksCount);
+  }
 
   console.log("successfully generated tasks list");
   
