@@ -65,6 +65,8 @@ $( document ).ready(function(){
  // Order tasks by
  getToDoByDueDate();
 
+ getToDoByDueDatePersonal();
+
 
   /* End Opening Logic, begin page generation logic */
  
@@ -128,6 +130,26 @@ function generateTodoList(result){
       checked = "";
     }
   
+    $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td>'+table[i][0]+'</td><td >'+table[i][1]+'</td><td>'+table[i][2]+'</td><td>'+table[i][5]+'</td><td>'+table[i][6]+'</td></tr>');
+  }
+  console.log("successfully generated todo list");
+}
+
+function generateTodoListPersonal(result){
+
+  $('#todo_list_personal').html("");
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+    
+    var rowClass = "done";
+    var checked = "checked";
+    if(table[i][4] == '0'){
+      rowClass = "";
+      checked = "";
+    }
+  
     $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td>'+table[i][0]+'</td><td >'+table[i][1]+'</td><td>'+table[i][2]+'</td><td>'+table[i][5]+'</td></tr>');
   }
   console.log("successfully generated todo list");
@@ -138,14 +160,27 @@ function generateTodoList(result){
 function getToDoByDueDate(){
 
  // Order tasks by
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
 
 }
 
 function getToDoByUrgency(){
   
 // Order tasks by urgency
-getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoList);
+getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoList);
+
+}
+
+
+function getToDoByDueDatePersonal(){
+
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoListPersonal);
+
+}
+
+function getToDoByUrgencyPersonal(){
+  
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task NATURAL JOIN Assigned_To_Task WHERE User_ID = '"+getUserID()+"' ORDER BY Task.Urgency DESC;", generateTodoListPersonal);
 
 }
 
@@ -349,7 +384,36 @@ function generateProjectsList(result){
               <div class="col-xs-12">
                 <div class="x_panel tile">
                   <div class="x_title">
-                    <h2>To Do List</h2><div class="clear-fix" style="clear:both;"></div><br/>
+                    <h2>To Do List (Assigned Directly)</h2><div class="clear-fix" style="clear:both;"></div><br/>
+            <button type="button" class="btn btn-default" onclick="getToDoByDueDatePersonal();">Order By Due Date</button> 
+            <button type="button" class="btn btn-default" onclick="getToDoByUrgencyPersonal();">Order By Urgency</button>
+
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class ="dataTable table table-striped">
+                      <thead>
+                        <th>Complete</th>
+                        <th>Task Name</th>
+                        <th>Task Description</th>
+                        <th>Due Date</th>
+                        <th>Urgency</th>
+                      </thead>
+
+                      <tbody id="todo_list_personal">
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-xs-12">
+                <div class="x_panel tile">
+                  <div class="x_title">
+                    <h2>To Do List (Team Assignments)</h2><div class="clear-fix" style="clear:both;"></div><br/>
             <button type="button" class="btn btn-default" onclick="getToDoByDueDate();">Order By Due Date</button> 
             <button type="button" class="btn btn-default" onclick="getToDoByUrgency();">Order By Urgency</button>
 
@@ -364,6 +428,7 @@ function generateProjectsList(result){
                         <th>Task Description</th>
                         <th>Project Name</th>
                         <th>Due Date</th>
+                        <th>Urgency</th>
                       </thead>
 
                       <tbody id="todo_list">
