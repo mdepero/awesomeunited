@@ -98,20 +98,6 @@ $( document ).ready(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function generateTeamsList(result){
 
   table = result.data;
@@ -155,50 +141,68 @@ function generateProjectsForPM(result){
 
 }
 
+// function generateTodoList(result){
+
+//   $('#todo_list').html("");
+
+//   table = result.data;
+
+//   for(var i = 0; i < table.length; i++){
+    
+//     var rowClass = "done";
+//     var checked = "checked";
+//     if(table[i][4] == '0'){
+//       rowClass = "";
+//       checked = "";
+//     }
+  
+  //   $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td id="name_'+table[i][3]+'">'+table[i][0]+'</td><td id="desc_'+table[i][3]+'">'+table[i][1]+'</td><td id="project_'+table[i][3]+'">'+table[i][2]+'</td><td id="date _'+table[i][3]+'">'+table[i][5]+'</td></tr>');
+  // }
+  // console.log("successfully generated todo list");
+// }
 
 
 function generatePMBars(result){
 
   table = result.data;
+  var PMtasks = 0;
+  var PMcomplete = 0;
+  var PMpercentage = 0;
 
+//tasks for each proj
   for(var i = 0; i < table.length; i++){
-//calculate progress
+    PMtasks ++;
+    if(table[i][4] == '1'){
+      PMcomplete ++;
+    }
+//num of tasks, num of completed
+  PMpercentage = Math.round(PMcomplete/PMtasks));
+
+console.log(PMtasks, PMcomplete, PMpercentage + "/n");
 //append html table to show the bar
-    
+    // $('').append('<div class="widget_summary">
+    //   <div class="w_left w_25">
+    //     <span>table[i][0]</span>
+    //   </div>
+    //   <div class="w_center w_55">
+    //     <div class="progress">
+    //       <div class="progress-bar bg-green" role="progressbar" aria-valuenow=PMpercentage aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+    //         <span class="sr-only">PMpercentage% Complete</span>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div class="w_right w_20">
+    //     <span>123k</span>
+    //   </div>
+    //   <div class="clearfix"></div>
+    // </div>');
     
 
   }
 }
 
 
-
-
-
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -366,11 +370,17 @@ function generatePMBars(result){
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <!-- <table class="dataTable" id="roster_table"> -->
+
+                    <table class ="dataTable table table-striped">
+                      <thead>
                       <tr>
                         <th>Project</th>
                         <th>Progress</th>
                       </tr>
+                      </thead>
+                      <tbody id="progress_bar">
+                      </tbody>
+                      
                     </table>
 
                   </div>
