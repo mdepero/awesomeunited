@@ -117,11 +117,54 @@ function generateCategoryBlocks(result){
 function getToDoByDueDate(catID){
 
  // Order tasks by
-  //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
-  console.log("Ran For Category: "+catID);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency, Category.Category_ID as \""+catID+"\" FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID WHERE Category.Category_ID = '"+catID+"' ORDER BY Task.Due_Date;", generateTodoList);
 
 }
 
+function getToDoByUrgency(catID){
+
+ // Order tasks by
+  getDataFromQuery("SELECT Task.Name, Task.Description, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency, Category.Category_ID as \""+catID+"\" FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID WHERE Category.Category_ID = '"+catID+"' ORDER BY Task.Urgency;", generateTodoList);
+
+}
+
+function generateTodoList(result){
+
+  var catID = result.columns[6];
+
+  $('#todo_list_'+catID).html("");
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+    
+    var rowClass = "done";
+    var checked = "checked";
+    if(table[i][3] == '0'){
+      rowClass = "";
+      checked = "";
+    }
+  
+    $('#todo_list_'+catID).append('<tr class="fullRow_'+table[i][2]+' '+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success button_'+table[i][2]+'" onclick = "updateTask(this, '+table[i][2]+')" '+checked+'></td><td>'+table[i][0]+'</td><td >'+table[i][1]+'</td><td>'+table[i][4]+'</td><td>'+table[i][5]+'</td></tr>');
+  }
+  console.log("successfully generated todo list");
+}
+
+
+function updateTask(clickedBox, id){
+  
+  if( clickedBox.checked ){
+    runUpdateFromQuery("UPDATE Task SET Completed = 1 WHERE Task_ID = " +id);
+    $('.fullRow_'+id).toggleClass('done',true);
+    $('.button_'+id).prop("checked", true);
+  }else{
+    runUpdateFromQuery("UPDATE Task SET Completed = 0 WHERE Task_ID = " +id);
+    $('.fullRow_'+id).toggleClass('done',false);
+    $('.button_'+id).prop("checked", false);
+  }
+  
+  console.log("ran update");
+}
 
 function generateTeamMetaData(result){
 
