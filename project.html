@@ -230,7 +230,8 @@ function generateTasksList(result){
     PMpercentage = Math.round((completedCount/tasksCount)*100);
     $('#cat_tasks_list_' + table[0][2]).append('<div class="widget_summary"><div class="w_left w_25"></div><div class="w_center w_55"><div class="progress"><div class="progress-bar bg-green" role="progressbar" aria-valuenow=PMpercentage aria-valuemin="0" aria-valuemax="100" style="width: '+PMpercentage+'%;"><span class="sr-only">PMpercentage% Complete</span></div></div></div><div class="w_right w_20"><span>'+PMpercentage+'%</span></div><div class="clearfix"></div></div>');
   }else{
-    $('#cat_tasks_list_' + result.columns[2]).append('Not Started Yet');
+    PMpercentage = 0;
+    $('#cat_tasks_list_' + table[0][2]).append('<div class="widget_summary"><div class="w_left w_25"></div><div class="w_center w_55"><div class="progress"><div class="progress-bar bg-green" role="progressbar" aria-valuenow=PMpercentage aria-valuemin="0" aria-valuemax="100" style="width: '+PMpercentage+'%;"><span class="sr-only">PMpercentage% Complete</span></div></div></div><div class="w_right w_20"><span>'+PMpercentage+'%</span></div><div class="clearfix"></div></div>');
   }
 
   console.log("successfully generated tasks list");
