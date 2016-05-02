@@ -171,15 +171,16 @@ function createTeam(name, description){
   console.log("team added");
 }
 
+var newProjectName = "";
 function projectCreationPrompt(){
-  bootbox.prompt("Project Name", function(result) {
+  bootbox.prompt("New Project Name", function(result) {
     if (result !== null) {
-      newName = result;
+      newProjectName = result;
 
       bootbox.prompt("Project Description", function(result){
         if (result !== null){
           newDescription = result;
-          createProject(newName, newDescription);
+          createProject(newProjectName, newDescription);
         }
       });
 
@@ -193,7 +194,7 @@ function createProject(name, description){
     //console.log(teamID);
     var userID = getUserID();
     runUpdateFromQuery("Insert into Member_Of_Project VALUES('"+userID+"', '"+projectID+"')");
-    console.log("user added to team");
+    console.log("user added to project");
   });
   console.log("project added");
 }
@@ -391,34 +392,6 @@ function createProject(name, description){
               
 
 
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel tile">
-                  <div class="x_title">
-                    <h2>Test</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <h4>This is a test...</h4>
-
-                    <div id="test_table">
-
-                    </div>
-
-                    <script>
-                    //$(document).ready(function(){ insertTableFromQuery('test_table','SELECT * FROM Test WHERE Major = \'Computer Science\';') });
-                    </script>
-                    
-
-                  </div>
-                </div>
-              </div>
 
               <div class="col-xs-12 text-right">
                 <button type="button" class="btn btn-primary" onclick="teamCreationPrompt()">New Team</button>
