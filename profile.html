@@ -62,6 +62,7 @@ $( document ).ready(function(){
 
   // generate teams list
   getDataFromQuery("SELECT a.Team_ID, Name FROM Member_Of_Team AS a JOIN Team AS b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", generateTeamsList);
+  getDataFromQuery("SELECT a.Team_ID, Name FROM Member_Of_Team AS a JOIN Team AS b on a.Team_ID = b.Team_ID WHERE a.User_ID = '"+userID+"'", showTeamMembership);
 
   // generate projects list
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
@@ -92,6 +93,16 @@ $( document ).ready(function(){
 //    result.columns = an array of all the column names returned from the DB, in the same order as they appear in the table
 //    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
+
+
+function showTeamMembership(result){
+
+  var table = result.data;
+
+  for(var i = 0;i < table.length; i++){
+    $('#team_membership').append('<li>'+table[i][1]+'</li>');
+  }
+}
 
 
 function getDataProfilePage(){
@@ -400,7 +411,9 @@ function updateOrg(){
 
                     <h4>Organization: <span id="welcome-org"></span> <a href="javascript:;" onclick="updateOrg();" id="edit-org"><i class="fa fa-wrench" aria-hidden="true"></i></a></h4>
 
-                   
+                    <h4>Team Membership: </h4>
+                    <ul id="team_membership">
+                    </ul>
 
                   </div>
                 </div>
