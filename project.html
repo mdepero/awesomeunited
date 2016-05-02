@@ -151,7 +151,7 @@ function addMemberToProjectPopup(result){
                               var newUserID = $("#addUserIDSelect").val()
                               var projectID = getIDFromURL();
                               if(newUserID !== null){
-                                runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES('"+newUserID+"', '"+projectID+"')");
+                                runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES('"+newUserID+"', '"+projectID+"')", function(){});
                                 buildProjectList();
                               }
                           }
@@ -190,7 +190,7 @@ function generateProjectMemberRoster(result){
 
 function removeUserFromProject(deleteID){
   console.log("removing user "+deleteID+" from Project.")
-  runUpdateFromQuery("DELETE FROM Member_Of_Project WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'");
+  runUpdateFromQuery("DELETE FROM Member_Of_Project WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'", function(){});
   buildProjectList();
 }
 
@@ -341,7 +341,7 @@ function addCategory(){
 			
 			categoryDesc = result;
 			
-			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")");
+			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")", function(){});
 			location.reload();
 			
 		  }
@@ -393,7 +393,7 @@ function addTeamPopup(result){
                           callback: function () {
                               var newTeamID = $("#addUserIDSelect").val();
                               if(newTeamID !== null){
-                                runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')");
+                                runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')", function(){});
                                 loadAssignedTeams(categoryToAssignTo);
                               }
                           }
