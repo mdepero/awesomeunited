@@ -177,10 +177,11 @@ function generatePMBars(result){
     if(table[i][4] == '1'){
       PMcomplete ++;
     }
+  }
 //num of tasks, num of completed
   PMpercentage = Math.round(PMcomplete/PMtasks);
 
-console.log("percent found: "+PMtasks);
+console.log("percent found: "+ PMpercentage);
 //append html table to show the bar
     // $('').append('<div class="widget_summary">
     //   <div class="w_left w_25">
@@ -199,8 +200,6 @@ console.log("percent found: "+PMtasks);
     //   <div class="clearfix"></div>
     // </div>');
     
-
-  }
 }
 
 
