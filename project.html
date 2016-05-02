@@ -62,6 +62,8 @@ $( document ).ready(function(){
 
   // generate projects list
   getDataFromQuery("SELECT a.Project_ID, Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsList);
+
+  getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Project NATURAL JOIN User WHERE Project_ID = '"+projectID+"'", generateProjectMetaData);
   
   // generate category list
   getDataFromQuery("SELECT Name, Description, Category_ID FROM Category WHERE Project_ID = '" + projectID + "'", generateCatList);
@@ -106,6 +108,17 @@ $( document ).ready(function(){
 
 // global project id for the page
 var projectID = getIDFromURL();
+
+function generateProjectMetaData(result){
+
+  table = result.data;
+
+  $('#project-name').html(table[0][0]);
+  $('#project-description').html(table[0][1]);
+  $('#project-manager').html(table[0][2]+' '+table[0][3]);
+
+}
+
 
 
 function generateTeamsList(result){
@@ -439,16 +452,21 @@ function addTeamPopup(result){
       <div class="right_col" role="main" style="min-height: 100vh">
 
         <div class="row">
+		      <div class="col-xs-12">
+            <h1 id="project-name"></h1>
+            <h3>Project Manager: <span id="project-manager"></span></h3>
+            <p id="project-description"></p>
+          </div>
+
+    			<div class="col-xs-12 text-right">
+    				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
+    			</div>
 		
-			<div class="col-xs-12 text-right">
-				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
-			</div>
-		
-			<div id="members_list">
+          <div id="members_list">
 					
-            </div>
+          </div>
 			
-		</div>
+		    </div>
 
         <!-- footer content -->
 
