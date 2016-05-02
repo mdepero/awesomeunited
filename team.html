@@ -69,7 +69,7 @@ $( document ).ready(function(){
   buildTeamList();
 
   // generate categories the team is assigned to
-  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"' ORDER BY Project.Project_ID", generateCategoryBlocks);
+  buildCategoryBlocks();
 
   // load team meta data
   getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamMetaData);
@@ -101,6 +101,9 @@ $( document ).ready(function(){
 //    result.data = a 2D array consisting of all returned data. For example, result.data[1][0] is the first column of the second row of the returned data.
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
 
+function buildCategoryBlocks(){
+  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"' ORDER BY Project.Project_ID", generateCategoryBlocks);
+}
 
 function generateCategoryBlocks(result){
   table = result.data;
@@ -157,7 +160,9 @@ function editField(fieldID, fieldLabel, originalVal, taskID){
     value: originalVal,
     callback: function(result) {
       if (result !== null) {
-        console.log("updated field");
+        runUpdateFromQuery("UPDATE TASK SET "+fieldID+" = '"+result+"' WHERE Task_ID = '"+taskID+"'",function(){
+          buildCategoryBlocks();
+        });
       }
     }
   });
