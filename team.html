@@ -69,7 +69,7 @@ $( document ).ready(function(){
   buildTeamList();
 
   // generate categories the team is assigned to
-  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"'", generateCategoryBlocks);
+  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Assigned_To_Category.Team_ID = '"+teamID+"' ORDER BY Project.Project_ID", generateCategoryBlocks);
 
   // load team meta data
   getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamMetaData);
