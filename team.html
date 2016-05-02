@@ -160,7 +160,7 @@ function editField(fieldID, fieldLabel, originalVal, taskID){
     value: originalVal,
     callback: function(result) {
       if (result !== null) {
-        runUpdateFromQuery("UPDATE TASK SET "+fieldID+" = '"+result+"' WHERE Task_ID = '"+taskID+"'",function(){
+        runUpdateFromQuery("UPDATE Task SET "+fieldID+" = '"+result+"' WHERE Task_ID = '"+taskID+"'",function(){
           buildCategoryBlocks();
         });
       }
