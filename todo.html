@@ -162,14 +162,14 @@ function generateTodoListPersonal(result){
 function getToDoByDueDate(){
 
  // Order tasks by
-  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Assigned_To_Category ON Project.Project_ID = Assigned_To_Category.Project_ID JOIN Member_Of_Team ON Member_Of_Team.Team_ID = Assigned_To_Category.Team_ID JOIN User ON Member_Of_Team.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
+  getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Assigned_To_Category ON Category.Category_ID = Assigned_To_Category.Category_ID JOIN Member_Of_Team ON Member_Of_Team.Team_ID = Assigned_To_Category.Team_ID JOIN User ON Member_Of_Team.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
 
 }
 
 function getToDoByUrgency(){
   
 // Order tasks by urgency
-getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Assigned_To_Category ON Project.Project_ID = Assigned_To_Category.Project_ID JOIN Member_Of_Team ON Member_Of_Team.Team_ID = Assigned_To_Category.Team_ID JOIN User ON Member_Of_Team.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoList);
+getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Assigned_To_Category ON Category.Category_ID = Assigned_To_Category.Category_ID JOIN Member_Of_Team ON Member_Of_Team.Team_ID = Assigned_To_Category.Team_ID JOIN User ON Member_Of_Team.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Urgency;", generateTodoList);
 
 }
 
