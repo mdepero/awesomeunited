@@ -180,7 +180,7 @@ function generateCatTeamList(result){
 }
 
 function unassignTeam(id){
-  runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Project_ID = '"+project_ID+"' AND Category_ID = '"+id+"'", function(){
+  runUpdateFromQuery("DELETE FROM Assigned_To_Category WHERE Project_ID = '"+projectID+"' AND Category_ID = '"+id+"'", function(){
     location.reload();
   });
 }
