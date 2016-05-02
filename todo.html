@@ -125,7 +125,7 @@ function generateTodoList(result){
       checked = "";
     }
   
-    $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="icheckbox_flat" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td id="name_'+table[i][3]+'">'+table[i][0]+'</td><td id="desc_'+table[i][3]+'">'+table[i][1]+'</td><td id="project_'+table[i][3]+'">'+table[i][2]+'</td><td id="date _'+table[i][3]+'">'+table[i][5]+'</td></tr>');
+    $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td id="name_'+table[i][3]+'">'+table[i][0]+'</td><td id="desc_'+table[i][3]+'">'+table[i][1]+'</td><td id="project_'+table[i][3]+'">'+table[i][2]+'</td><td id="date _'+table[i][3]+'">'+table[i][5]+'</td></tr>');
   }
   console.log("successfully generated todo list");
 }
@@ -360,7 +360,7 @@ function generateProjectsList(result){
                   </div>
                   <div class="x_content">
 
-                    <table class ="dataTable">
+                    <table class ="dataTable table table-striped">
                       <thead>
                       <tr>
                         <th>Complete</th>
