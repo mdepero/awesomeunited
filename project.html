@@ -151,8 +151,7 @@ function addMemberToProjectPopup(result){
                               var newUserID = $("#addUserIDSelect").val()
                               var projectID = getIDFromURL();
                               if(newUserID !== null){
-                                runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES('"+newUserID+"', '"+projectID+"')", function(){});
-                                buildProjectList();
+                                runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES('"+newUserID+"', '"+projectID+"')", function(){buildProjectList();});
                               }
                           }
                       }
@@ -340,8 +339,7 @@ function addCategory(){
 			
 			categoryDesc = result;
 			
-			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")", function(){});
-			location.reload();
+			runUpdateFromQuery("INSERT INTO Category VALUES (null, '" + categoryName + "', '" + categoryDesc + "', " + projectID + ")", function(){location.reload();});
 			
 		  }
 		});
@@ -392,8 +390,7 @@ function addTeamPopup(result){
                           callback: function () {
                               var newTeamID = $("#addUserIDSelect").val();
                               if(newTeamID !== null){
-                                runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')", function(){});
-                                loadAssignedTeams(categoryToAssignTo);
+                                runUpdateFromQuery("INSERT INTO Assigned_To_Category VALUES('"+newTeamID+"', '"+categoryToAssignTo+"')", function(){loadAssignedTeams(categoryToAssignTo);});
                               }
                           }
                       }
