@@ -108,6 +108,8 @@ function buildCategoryBlocks(){
 function generateCategoryBlocks(result){
   table = result.data;
 
+  $('#category_blocks').html("");
+
   for(var i = 0; i < table.length; i++){
 
     $('#category_blocks').append('<div class="col-xs-12"><div class="x_panel tile"><div class="x_title"><h2><a href="./project.html#"'+table[i][3]+'">'+table[i][2]+'</a> - '+table[i][1]+'</h2><div class="clear-fix" style="clear:both;"></div><br/><button type="button" class="btn btn-default" onclick="getToDoByDueDate('+table[i][0]+');">Due Date</button> <button type="button" class="btn btn-default" onclick="getToDoByUrgency('+table[i][0]+');">By Urgency</button><div class="clearfix"></div></div><div class="x_content"><table class ="dataTable table table-striped table-hover"><thead><th>Complete</th><th>Task Name</th><th>Task Description</th><th>Due Date</th><th>Urgency</th></thead><tbody id="todo_list_'+table[i][0]+'"></tbody></table></div></div></div>');
@@ -148,7 +150,7 @@ function generateTodoList(result){
       checked = "";
     }
   
-    $('#todo_list_'+catID).append('<tr class="fullRow_'+table[i][2]+' '+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success button_'+table[i][2]+'" onclick = "updateTask(this, '+table[i][2]+')" '+checked+'></td><td onclick="editField(\'Name\', \'name\',\''+table[i][0]+'\', \''+table[i][2]+'\')">'+table[i][0]+'</td><td onclick="editField(\'Description\', \'description\',\''+table[i][1]+'\',\''+table[i][2]+'\')">'+table[i][1]+'</td><td onclick="editField(\'Due_Date\', \'due date (YYYY-MM-DD)\',\''+table[i][4]+'\',\''+table[i][2]+'\')">'+table[i][4]+'</td><td onclick="editField(\'Urgency\', \'urgency (1-5, 5=Most Urgent)\',\''+table[i][5]+'\',\''+table[i][2]+'\')">'+table[i][5]+'</td></tr>');
+    $('#todo_list_'+catID).append('<tr class="fullRow_'+table[i][2]+' '+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success button_'+table[i][2]+'" onclick = "updateTask(this, '+table[i][2]+')" '+checked+'></td><td onclick="editField(\'Name\', \'name\',\''+table[i][0]+'\', \''+table[i][2]+'\')">'+table[i][0]+'</td><td onclick="editField(\'Description\', \'description\',\''+table[i][1]+'\',\''+table[i][2]+'\')">'+table[i][1]+'</td><td onclick="editField(\'Due_Date\', \'due date (YYYY-MM-DD)\',\''+table[i][4]+'\',\''+table[i][2]+'\')">'+table[i][4]+'</td><td onclick="editField(\'Urgency\', \'urgency (1-5, 1=Most Urgent)\',\''+table[i][5]+'\',\''+table[i][2]+'\')">'+table[i][5]+'</td></tr>');
   }
   console.log("successfully generated todo list");
 }
