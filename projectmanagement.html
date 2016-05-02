@@ -62,7 +62,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project_ID, Name FROM Member_Of_Project NATURAL JOIN Project WHERE User_ID = '"+userID+"'", generateProjectsList);
 
   // get all projects assigned to
-  getDataFromQuery("SELECT a.Project_ID FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsForPM);
+  getDataFromQuery("SELECT a.Project_ID, b.Name FROM Member_Of_Project AS a JOIN Project AS b on a.Project_ID = b.Project_ID WHERE a.User_ID = '"+userID+"'", generateProjectsForPM);
 
   /* End Opening Logic, begin page generation logic */
 
@@ -134,7 +134,7 @@ function generateProjectsForPM(result){
 
   for(var i = 0; i < table.length; i++){
 
-    getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Project.Project_ID = "+table[i][0], generatePMBars);
+    getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name as \""+table[i][1]+"\", Task.Task_ID, Task.Completed FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID WHERE Project.Project_ID = "+table[i][0], generatePMBars);
 
   }
 
@@ -178,14 +178,17 @@ function generatePMBars(result){
       PMcomplete ++;
     }
   }
-//num of tasks, num of completed
+  //num of tasks, num of completed
   //PMpercentage = Math.round(((PMcomplete/PMtasks)*100)/100);
-  PMpercentage = Math.round((PMcomplete/PMtasks)*100);
-console.log("tasks: " + PMtasks);
-console.log("complete: "+ PMcomplete);
-console.log("percent found: "+ PMpercentage + "%");
-//append html table to show the bar
-    $('#progress_bar').append('<tr><td>'+table[i][0]+'</td><td><div class="widget_summary"><div class="w_left w_25"></div><div class="w_center w_55"><div class="progress"><div class="progress-bar bg-green" role="progressbar" aria-valuenow=PMpercentage aria-valuemin="0" aria-valuemax="100" style="width: '+PMpercentage+'%;"><span class="sr-only">PMpercentage% Complete</span></div></div></div><div class="w_right w_20"><span>'+PMpercentage+'%</span></div><div class="clearfix"></div></div></td></tr>');
+  if(PMtasks == 0)
+    PMpercentage = 0;
+  else
+    PMpercentage = Math.round((PMcomplete/PMtasks)*100);
+  console.log("tasks: " + PMtasks);
+  console.log("complete: "+ PMcomplete);
+  console.log("percent found: "+ PMpercentage + "%");
+  //append html table to show the bar
+    $('#progress_bar').append('<tr><td>'+result.columns[2]+'</td><td><div class="widget_summary"><div class="w_left w_25"></div><div class="w_center w_55"><div class="progress"><div class="progress-bar bg-green" role="progressbar" aria-valuenow=PMpercentage aria-valuemin="0" aria-valuemax="100" style="width: '+PMpercentage+'%;"><span class="sr-only">PMpercentage% Complete</span></div></div></div><div class="w_right w_20"><span>'+PMpercentage+'%</span></div><div class="clearfix"></div></div></td></tr>');
 console.log("appended progress_bar");
 }
 
