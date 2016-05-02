@@ -150,7 +150,7 @@ function generateTodoListPersonal(result){
       checked = "";
     }
   
-    $('#todo_list').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td>'+table[i][0]+'</td><td >'+table[i][1]+'</td><td>'+table[i][2]+'</td><td>'+table[i][5]+'</td></tr>');
+    $('#todo_list_personal').append('<tr id="fullRow_'+table[i][3]+'" class="'+rowClass+'"><td><input type="checkbox" class="checkbox checkbox-success" onclick = "updateTask('+table[i][3]+')" id="button_'+table[i][3]+'" '+checked+'></td><td>'+table[i][0]+'</td><td >'+table[i][1]+'</td><td>'+table[i][2]+'</td><td>'+table[i][5]+'</td></tr>');
   }
   console.log("successfully generated todo list");
 }
