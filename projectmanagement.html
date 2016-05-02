@@ -164,6 +164,8 @@ function generateProjectsForPM(result){
 
 function generatePMBars(result){
 
+  console.log("starting PM Bars");
+
   table = result.data;
   var PMtasks = 0;
   var PMcomplete = 0;
@@ -175,10 +177,13 @@ function generatePMBars(result){
     if(table[i][4] == '1'){
       PMcomplete ++;
     }
+  }
 //num of tasks, num of completed
-  PMpercentage = Math.round(PMcomplete/PMtasks));
+  PMpercentage = Math.round(((PMcomplete/PMtasks)*100)/100);
 
-console.log(PMtasks);
+console.log("tasks: " + PMtasks);
+console.log("complete: "+ PMcomplete);
+console.log("percent found: "+ PMpercentage);
 //append html table to show the bar
     // $('').append('<div class="widget_summary">
     //   <div class="w_left w_25">
@@ -197,8 +202,6 @@ console.log(PMtasks);
     //   <div class="clearfix"></div>
     // </div>');
     
-
-  }
 }
 
 
