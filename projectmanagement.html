@@ -180,7 +180,7 @@ function generatePMBars(result){
   }
 //num of tasks, num of completed
   //PMpercentage = Math.round(((PMcomplete/PMtasks)*100)/100);
-  PMpercentage = PMcomplete/PMtasks;
+  PMpercentage = ((PMcomplete/PMtasks)*100);
 console.log("tasks: " + PMtasks);
 console.log("complete: "+ PMcomplete);
 console.log("percent found: "+ PMpercentage);
