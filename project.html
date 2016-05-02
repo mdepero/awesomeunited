@@ -564,27 +564,29 @@ function addTeamPopup(result){
     				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
     			</div>
 
-          <div class="x_panel tile">
-            <div class="x_title">
-              <h2>Project Team</h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a onclick="addMemberToProject()"><i class="fa fa-plus"></i></a>
-                </li>
-              </ul>
-              <div class="clearfix"></div>
+          <div class="col-md-8">
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2>Project Team</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                  <li><a onclick="addMemberToProject()"><i class="fa fa-plus"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <table class="dataTable">
+                  <thead>
+                    <tr>
+                      <th>User ID</th>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody id="roster_table">
+                  </tbody>
+                </table>
+               </div>
             </div>
-            <div class="x_content">
-              <table class="dataTable">
-                <thead>
-                  <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                  </tr>
-                </thead>
-                <tbody id="roster_table">
-                </tbody>
-              </table>
-             </div>
           </div>
 		
           <div id="members_list">
