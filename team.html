@@ -69,7 +69,7 @@ $( document ).ready(function(){
   buildTeamList();
 
   // generate categories the team is assigned to
-  getDataFromQuery("SELECT Project.Name, Category.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team.Team_ID = '"+teamID+"'", generateAssignedCategories);
+  getDataFromQuery("SELECT Category.Category_ID, Category.Name, Project.Name FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Project ON Project.Project_ID = Category.Project_ID WHERE Team.Team_ID = '"+teamID+"'", generateCategoryBlocks);
 
   // load team meta data
   getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamMetaData);
@@ -102,6 +102,27 @@ $( document ).ready(function(){
 //    ^^^^^^^^^^^ Remember that only the columns you selected in your query will be returned
 
 
+function generateCategoryBlocks(result){
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+
+    $('#category_blocks').append('<div class="col-xs-12"><div class="x_panel tile"><div class="x_title"><h2>'+table[i][2]+' - '+table[i][1]+'</h2><div class="clear-fix" style="clear:both;"></div><br/><button type="button" class="btn btn-default" onclick="getToDoByDueDate('+table[i][0]+');">Due Date</button> <button type="button" class="btn btn-default" onclick="getToDoByUrgency('+table[i][0]+');">By Urgency</button><div class="clearfix"></div></div><div class="x_content"><table class ="dataTable table table-striped table-hover"><thead><th>Complete</th><th>Task Name</th><th>Task Description</th><th>Due Date</th><th>Urgency</th></thead><tbody id="todo_list_'+table[i][0]+'"></tbody></table></div></div></div>');
+
+    getToDoByDueDate(table[i][0]);
+  }
+}
+
+
+function getToDoByDueDate(catID){
+
+ // Order tasks by
+  //getDataFromQuery("SELECT Task.Name, Task.Description, Project.Name, Task.Task_ID, Task.Completed, Task.Due_Date, Task.Urgency FROM Task JOIN Category ON Task.Category_ID = Category.Category_ID JOIN Project ON Category.Project_ID = Project.Project_ID JOIN Member_Of_Project ON Project.Project_ID = Member_Of_Project.Project_ID JOIN User ON Member_Of_Project.User_ID = User.User_ID WHERE User.User_ID = '"+getUserID()+"' ORDER BY Task.Due_Date;", generateTodoList);
+  console.log("Ran For Category: "+catID);
+
+}
+
+
 function generateTeamMetaData(result){
 
   var table = result.data;
@@ -111,8 +132,6 @@ function generateTeamMetaData(result){
   $('#team-leader').html(table[0][2]+' '+table[0][3]);
 
 }
-
-
 
 
 function buildTeamList(){
@@ -177,15 +196,6 @@ function createTeam(name, description){
   console.log("team added");
 }
 
-function generateAssignedCategories(result){
-  console.log("generating assigned categories");
-  table = result.data;
-  for(var i = 0; i < table.length; i++){
-    $('#category_table').append('<tr><td><a href = "./project.html#'+table[i][2]+'">'+table[i][0]+'</td><td>'+table[i][1]+'</td></tr>');
-  }
-
-  console.log("successfully generated assigned categories");
-}
 
 var newName = "";
 var newDescription = "";
@@ -462,6 +472,9 @@ function removeUserFromTeam(deleteID){
 
                   </div>
                 </div>
+              </div>
+
+              <div id="category_blocks">
               </div>
 
 
