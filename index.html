@@ -189,7 +189,7 @@ function projectCreationPrompt(){
 }
 
 function createProject(name, description){
-  runUpdateFromQuery("INSERT INTO Project VALUES(null, '"+ name + "', '"+ description +"', null, "+ getUserID() + ")", function(result){
+  runUpdateFromQuery("INSERT INTO Project (Name,Description,User_ID) VALUES( '"+ name + "', '"+ description +"', '"+ getUserID() + "')", function(result){
     var projectID = result.lastInsertedID;
     //console.log(teamID);
     var userID = getUserID();
