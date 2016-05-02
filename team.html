@@ -72,7 +72,7 @@ $( document ).ready(function(){
   getDataFromQuery("SELECT Project.Name, Category.Name, Project.Project_ID FROM Category JOIN Assigned_To_Category on Category.Category_ID = Assigned_To_Category.Category_ID JOIN Team on Team.Team_ID = Assigned_To_Category.Team_ID JOIN Project on Project.Project_ID = Category.Category_ID WHERE Team.Team_ID = '"+teamID+"'", generateAssignedCategories);
 
   // load team meta data
-  getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User", generateTeamMetaData);
+  getDataFromQuery("SELECT Name, Description, First_Name, Last_Name FROM Team NATURAL JOIN User WHERE Team_ID = '"+teamID+"'", generateTeamMetaData);
 
   // *************** Put all page generation scripts here. *****************
   // the variable userID gets the current user ID.
