@@ -191,7 +191,7 @@ function generateCatTeamList(result){
 
   for(var i = 0; i < table.length; i++){
 
-    $('#cat_team_list_' + table[i][2]).append('<li>' + table[i][1] + ' <a href="javascript:;" onclick="unassignTeam('+table[i][0]+','+table[i][2]+')"><i class="fa fa-times"></i></a></li>');
+    $('#cat_team_list_' + table[i][2]).append('<li><a href="./team.html#' + table[i][0] + '">' + table[i][1] + '</a> <a href="javascript:;" onclick="unassignTeam('+table[i][0]+','+table[i][2]+')"><i class="fa fa-times"></i></a></li>');
 
   }
   console.log("successfully generated team list");
