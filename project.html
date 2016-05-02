@@ -113,6 +113,58 @@ var projectID = getIDFromURL();
 
 
 
+//Method to be called when adding a member to the team
+function addMemberToProject(){
+  var projectID = getIDFromURL();
+  getDataFromQuery(
+    "SELECT a.User_ID, CONCAT( First_Name,  ' ', Last_Name ) FROM User AS a WHERE User_ID NOT IN (SELECT User_ID FROM Member_Of_Project AS y WHERE y.Project_ID = "+projectID+")", addMemberToProjectPopup);
+}
+
+function addMemberToProjectPopup(result){
+  var table = result.data;
+
+  var dropdown = '<div class="row">  ' +
+    '<div class="col-md-12"> ' +
+    '<form class="form-horizontal"> ' +
+    '<div class="form-group"> ' +
+    '<label class="col-md-4 control-label" for="name">Users</label> ' +
+    '<div class="col-md-4"> '+
+    '<select id="addUserIDSelect" class="form-control"> ';
+
+  for (var i = 0; i < table.length; i++) {
+    dropdown +=
+      '<option value = "'+ table[i][0] +'">'+table[i][1]+'</option>';
+  }
+
+  dropdown+= '</select></div></div></form></div></div>';
+
+
+  bootbox.dialog({
+                  title: "Add new member to project.",
+                  message:  dropdown,
+                  buttons: {
+                      success: {
+                          label: "Add Member",
+                          className: "btn-success",
+                          callback: function () {
+                              var newUserID = $("#addUserIDSelect").val()
+                              var projectID = getIDFromURL();
+                              if(newUserID !== null){
+                                runUpdateFromQuery("INSERT INTO Member_Of_Project VALUES('"+newUserID+"', '"+projectID+"')");
+                                buildProjectList();
+                              }
+                          }
+                      }
+                  }
+              }
+          );
+
+
+}
+
+
+
+
 function buildProjectList(){
   var projectID = getIDFromURL();
 
@@ -138,7 +190,7 @@ function generateProjectMemberRoster(result){
 function removeUserFromProject(deleteID){
   console.log("removing user "+deleteID+" from team.")
   runUpdateFromQuery("DELETE FROM Member_Of_Team WHERE User_ID = '"+deleteID+"' AND Project_ID = '"+getIDFromURL()+"'");
-  buildTeamList();
+  buildProjectList();
 }
 
 
