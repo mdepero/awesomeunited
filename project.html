@@ -70,6 +70,8 @@ $( document ).ready(function(){
   
   /* End Opening Logic, begin page generation logic */
 
+  // generate team roster
+  buildProjectList();
 
   // *************** Put all page generation scripts here. *****************
   // getDataFromQuery takes an SQL query and a callback function that gets run when the data is returned
@@ -108,6 +110,32 @@ $( document ).ready(function(){
 
 // global project id for the page
 var projectID = getIDFromURL();
+
+
+
+function buildProjectList(){
+  var projectID = getIDFromURL();
+
+  getDataFromQuery("SELECT User_ID, concat(First_Name, ' ', Last_Name) FROM Member_Of_Project NATURAL JOIN User WHERE Project_ID = '"+projectID+"'", generateProjectMemberRoster);
+}
+
+
+function generateProjectMemberRoster(result){
+  console.log("generating project member roster");
+
+  $('#roster_table').html("");
+
+  table = result.data;
+
+  for(var i = 0; i < table.length; i++){
+    $('#roster_table').append('<tr><td>'+table[i][0]+'</td><td><a href = "./profile.html#'+table[i][0]+'">'+table[i][1]+'</a> <a onclick="removeUserFromTeam('+table[i][0]+')"><i class="fa fa-times"></i></a></td></tr>');
+  }
+
+  console.log("successfully generated team roster");
+}
+
+
+
 
 function generateProjectMetaData(result){
 
@@ -477,6 +505,29 @@ function addTeamPopup(result){
     			<div class="col-xs-12 text-right">
     				<button type="button" class="btn btn-primary" onclick="addCategory();">Add Sub Project</button>
     			</div>
+
+          <div class="x_panel tile">
+            <div class="x_title">
+              <h2>Project Team</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a onclick="addMemberToProject()"><i class="fa fa-plus"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <table class="dataTable">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody id="roster_table">
+                </tbody>
+              </table>
+             </div>
+          </div>
 		
           <div id="members_list">
 					
